@@ -1,4 +1,6 @@
-# Astro Starter Kit: Basics
+# Accademia Natango - Astro Website
+
+Questo repository ospita il sito web dell'Accademia Natango, migrato da WordPress ad Astro v5 e integrato con Keystatic CMS, pronto per la distribuzione su Vercel.
 
 ```sh
 npm create astro@latest -- --template basics
