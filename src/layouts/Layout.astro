@@ -47,6 +47,30 @@ const {
     <Header />
     <slot />
     <Footer />
+
+    <!-- Pulsante Torna in Alto -->
+    <button id="back-to-top" class="back-to-top" aria-label="Torna in alto">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+      const backToTopBtn = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          backToTopBtn?.classList.add('show');
+        } else {
+          backToTopBtn?.classList.remove('show');
+        }
+      });
+
+      backToTopBtn?.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    </script>
   </body>
 </html>
 
@@ -203,5 +227,49 @@ const {
   }
   .delay-3 {
     transition-delay: 0.45s;
+  }
+
+  /* Back to Top Button */
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--accent-red);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .back-to-top:hover {
+    background-color: var(--accent-red-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(6, 147, 227, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .back-to-top {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 45px;
+      height: 45px;
+      font-size: 1rem;
+    }
   }
 </style>
