@@ -3,8 +3,11 @@ import { config, fields, collection, singleton } from '@keystatic/core';
 export default config({
   storage:
     process.env.NODE_ENV === 'production'
-      ? { kind: 'github', repo: 'gpizziniSTM/Natango-astro' }
+      ? { kind: 'cloud' }
       : { kind: 'local' },
+  cloud: {
+    project: 'gpizzinistm/natango-astro',
+  },
   singletons: {
     settings: singleton({
       label: 'Impostazioni Generali',
