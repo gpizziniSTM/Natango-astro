@@ -222,7 +222,7 @@ const sortedLessons = [...lessons].sort((a, b) => {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 3rem;
+    padding: 3rem 1.5rem;
   }
 
   .schedule-header {
@@ -274,6 +274,11 @@ const sortedLessons = [...lessons].sort((a, b) => {
   .day-cell {
     font-weight: 700;
     color: var(--text-primary) !important;
+    white-space: nowrap;
+  }
+
+  .time-cell {
+    white-space: nowrap;
   }
 
   .time-cell i {
