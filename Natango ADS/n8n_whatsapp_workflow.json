@@ -1,0 +1,94 @@
+{
+  "name": "Natango ADS - WhatsApp Report Bot (3 Numeri Autorizzati)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-ads-trigger",
+        "options": {}
+      },
+      "name": "WhatsApp Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body.entry[0].changes[0].value.messages[0].from }}",
+              "operation": "regex",
+              "value2": "^(3933323270|393392737619|393494486269)$"
+            }
+          ]
+        }
+      },
+      "name": "Whitelist 3 Numeri Autorizzati",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [320, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://natango-astro.vercel.app/api/ads-report",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "natango_ads_secret_key_2026"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Chiama API Natango ADS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [540, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.item.json;\nconst s = data.summary || {};\n\nlet msg = `📊 *REPORT ADS ACCADEMIA NATANGO*\\n\\n`;\nmsg += `💰 *Spesa Totale:* € ${s.total_spend_eur || 0}\\n`;\nmsg += `👀 *Impression:* ${s.total_impressions || 0}\\n`;\nmsg += `🎯 *Clic Totali:* ${s.total_clicks || 0}\\n`;\nmsg += `📈 *CTR Medio:* ${s.overall_ctr_pct || 0}%\\n`;\nmsg += `🏷️ *CPC Medio:* € ${s.overall_cpc_eur || 0}\\n`;\nmsg += `✅ *Conversioni:* ${s.total_conversions || 0}\\n\\n`;\n\nmsg += `🔷 *META ADS:* € ${data.meta_ads?.summary?.total_spend_eur || 0} (${data.meta_ads?.summary?.total_clicks || 0} clic)\\n`;\nmsg += `🟢 *GOOGLE ADS:* € ${data.google_ads?.summary?.total_spend_eur || 0} (${data.google_ads?.summary?.total_clicks || 0} clic)`;\n\nreturn [{ json: { formatted_message: msg, recipient: $node['WhatsApp Webhook'].json.body.entry[0].changes[0].value.messages[0].from } }];"
+      },
+      "name": "Formatta Messaggio WhatsApp",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [760, 200]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "=YOUR_META_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "={{ $json.recipient }}",
+        "text": "={{ $json.formatted_message }}"
+      },
+      "name": "Invia Risposta WhatsApp",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [980, 200],
+      "credentials": {
+        "whatsAppApi": {
+          "id": "YOUR_WHATSAPP_CREDENTIALS_ID",
+          "name": "Meta WhatsApp Account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "WhatsApp Webhook": {
+      "main": [[{ "node": "Whitelist 3 Numeri Autorizzati", "type": "main", "index": 0 }]]
+    },
+    "Whitelist 3 Numeri Autorizzati": {
+      "main": [[{ "node": "Chiama API Natango ADS", "type": "main", "index": 0 }]]
+    },
+    "Chiama API Natango ADS": {
+      "main": [[{ "node": "Formatta Messaggio WhatsApp", "type": "main", "index": 0 }]]
+    },
+    "Formatta Messaggio WhatsApp": {
+      "main": [[{ "node": "Invia Risposta WhatsApp", "type": "main", "index": 0 }]]
+    }
+  }
+}
