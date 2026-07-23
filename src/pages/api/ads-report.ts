@@ -219,7 +219,7 @@ async function fetchGoogleAds(range: string) {
     `;
 
     const apiVersion = process.env.GOOGLE_ADS_API_VERSION || 'v18';
-    const url = `https://googleads.googleapis.com/${apiVersion}/customers/${customerId}/googleAds:searchStream`;
+    const url = `https://googleads.googleapis.com/${apiVersion}/customers/${customerId}/googleAds:search`;
 
     const headers: Record<string, string> = {
       'Authorization': `Bearer ${accessToken}`,
