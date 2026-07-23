@@ -6,7 +6,7 @@ api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNTVmOTA0Yi1hNGJiLTQw
 wf_id = "vRunXUeKp9ikTdkF"
 
 token = "EAAWYCFZBRem8BSAqFtQVBcpNN5bF9OAlMFsChrwe9V2J5xZCEigJLP0oqmiYT9UiY7QmGp3L0ltPthosRgePkOaMGQL2iU8jiIi2kOqVgJYMPtif27YnORSCtmyWB4p12fdlRyMBN1UZBL9ZBFMibn1lYjttZAOgBXHrVnmphFIB3J9FQcbFQGvkAqNylLbXvVwZDZD"
-phone_number_id = "1243463512184066"
+phone_number_id = "1239814905883494"
 
 url = f"https://n8n.bestengage.net/api/v1/workflows/{wf_id}"
 req = urllib.request.Request(url, headers={"X-N8N-API-KEY": api_key})
@@ -54,7 +54,7 @@ req_up = urllib.request.Request(wf_update_url, data=json.dumps(update_data).enco
 
 try:
     with urllib.request.urlopen(req_up) as resp_up:
-        print("✅ WORKFLOW N8N AGGIORNATO CON IL TOKEN PERMANENTE E PHONE NUMBER ID!")
+        print("✅ WORKFLOW N8N AGGIORNATO CON L'ID REALE ESATTO 1239814905883494!")
         
         # Riattiviamo il workflow
         act_url = f"https://n8n.bestengage.net/api/v1/workflows/{wf_id}/activate"
