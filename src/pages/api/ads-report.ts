@@ -39,9 +39,7 @@ async function fetchMetaAds(datePreset: string) {
   }
 
   const cleanAccountId = accountId.startsWith('act_') ? accountId : `act_${accountId}`;
-  // Meta usa 'maximum' per il lifetime; normalizziamo l'alias 'lifetime'.
-  const metaPreset = datePreset === 'lifetime' ? 'maximum' : datePreset;
-  const url = `https://graph.facebook.com/v20.0/${cleanAccountId}/insights?fields=campaign_id,campaign_name,spend,impressions,clicks,ctr,cpc,actions&level=campaign&date_preset=${metaPreset}&access_token=${token}`;
+  const url = `https://graph.facebook.com/v20.0/${cleanAccountId}/insights?fields=campaign_id,campaign_name,spend,impressions,clicks,ctr,cpc,actions&level=campaign&date_preset=${datePreset}&access_token=${token}`;
 
   try {
     const res = await fetch(url);
@@ -147,35 +145,26 @@ async function fetchGoogleAds(datePreset: string) {
     // Override getAccessToken per usare il JWT del Service Account
     (customer as any).getAccessToken = async () => accessToken;
 
-    let duringClause = 'segments.date DURING LAST_7_DAYS';
-    if (datePreset === 'today') {
-      duringClause = 'segments.date DURING TODAY';
-    } else if (datePreset === 'yesterday') {
-      duringClause = 'segments.date DURING YESTERDAY';
-    } else if (datePreset === 'this_month') {
-      duringClause = 'segments.date DURING THIS_MONTH';
+    let duringClause = 'DURING LAST_7_DAYS';
+    if (datePreset === 'this_month') {
+      duringClause = 'DURING THIS_MONTH';
     } else if (datePreset === 'last_30d') {
-      duringClause = 'segments.date DURING LAST_30_DAYS';
-    } else if (datePreset === 'maximum' || datePreset === 'lifetime') {
-      // Google non ha un preset "lifetime": usiamo un intervallo esplicito
-      // da una data ampiamente antecedente all'avvio account fino a oggi.
-      const today = new Date().toISOString().slice(0, 10);
-      duringClause = `segments.date BETWEEN '2024-01-01' AND '${today}'`;
+      duringClause = 'DURING LAST_30_DAYS';
     }
 
     const query = `
-      SELECT
-        campaign.id,
-        campaign.name,
-        campaign.status,
-        metrics.cost_micros,
-        metrics.impressions,
-        metrics.clicks,
-        metrics.ctr,
-        metrics.average_cpc,
+      SELECT 
+        campaign.id, 
+        campaign.name, 
+        campaign.status, 
+        metrics.cost_micros, 
+        metrics.impressions, 
+        metrics.clicks, 
+        metrics.ctr, 
+        metrics.average_cpc, 
         metrics.conversions
-      FROM campaign
-      WHERE ${duringClause}
+      FROM campaign 
+      WHERE segments.date ${duringClause}
     `;
 
     const results = await customer.query(query);
@@ -237,14 +226,10 @@ export const ALL: APIRoute = async ({ request, url }) => {
   }
 
   const datePreset = url.searchParams.get('range') || 'last_7d';
-  // Includi anche la spesa "di oggi" a meno che il periodo richiesto sia già 'today'.
-  const wantToday = datePreset !== 'today';
 
-  const [metaRes, googleRes, metaToday, googleToday] = await Promise.all([
+  const [metaRes, googleRes] = await Promise.all([
     fetchMetaAds(datePreset),
-    fetchGoogleAds(datePreset),
-    wantToday ? fetchMetaAds('today') : Promise.resolve(null),
-    wantToday ? fetchGoogleAds('today') : Promise.resolve(null)
+    fetchGoogleAds(datePreset)
   ]);
 
   let combinedSpend = 0;
@@ -272,13 +257,6 @@ export const ALL: APIRoute = async ({ request, url }) => {
   const overallCpc = combinedClicks > 0 ? Math.round((combinedSpend / combinedClicks) * 100) / 100 : 0;
   const costPerConv = combinedConversions > 0 ? Math.round((combinedSpend / combinedConversions) * 100) / 100 : 0;
 
-  // Spesa di oggi (combinata + per piattaforma). Se un fetch è fallito, resta 0.
-  const metaTodaySpend = metaToday && !metaToday.error && metaToday.summary ? metaToday.summary.total_spend_eur : 0;
-  const googleTodaySpend = googleToday && !googleToday.error && googleToday.summary ? googleToday.summary.total_spend_eur : 0;
-  const metaTodayClicks = metaToday && !metaToday.error && metaToday.summary ? metaToday.summary.total_clicks : 0;
-  const googleTodayClicks = googleToday && !googleToday.error && googleToday.summary ? googleToday.summary.total_clicks : 0;
-  const todaySpend = Math.round((metaTodaySpend + googleTodaySpend) * 100) / 100;
-
   const payload = {
     date_preset: datePreset,
     summary: {
@@ -289,12 +267,6 @@ export const ALL: APIRoute = async ({ request, url }) => {
       overall_ctr_pct: overallCtr,
       overall_cpc_eur: overallCpc,
       cost_per_conversion_eur: costPerConv
-    },
-    today: {
-      total_spend_eur: todaySpend,
-      total_clicks: metaTodayClicks + googleTodayClicks,
-      meta_spend_eur: metaTodaySpend,
-      google_spend_eur: googleTodaySpend
     },
     meta_ads: metaRes,
     google_ads: googleRes
