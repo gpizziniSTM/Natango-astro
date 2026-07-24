@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { GoogleAdsApi } from 'google-ads-api';
 import { JWT } from 'google-auth-library';
 
 export const prerender = false;
@@ -101,7 +100,9 @@ async function fetchMetaAds(datePreset: string) {
   }
 }
 
-// Google Ads Fetcher via google-ads-api Node SDK
+// Google Ads Fetcher via REST diretta (googleAds:search).
+// NB: NON usa l'SDK google-ads-api (enorme, ~250MB con i protobuf) per
+// restare sotto il limite di 225MB della function serverless Vercel.
 async function fetchGoogleAds(datePreset: string) {
   const devToken = process.env.GOOGLE_ADS_DEVELOPER_TOKEN;
   const customerId = (process.env.GOOGLE_ADS_CUSTOMER_ID || '').replace(/-/g, '');
@@ -130,22 +131,14 @@ async function fetchGoogleAds(datePreset: string) {
       scopes: ['https://www.googleapis.com/auth/adwords'],
     });
 
-    await auth.authorize();
-    const accessToken = auth.credentials.access_token;
+    const tokenResp = await auth.getAccessToken();
+    const accessToken = typeof tokenResp === 'string' ? tokenResp : tokenResp?.token;
+    if (!accessToken) {
+      return { error: true, message: 'Impossibile ottenere access token Google Ads (service account)' };
+    }
 
-    const client = new GoogleAdsApi({
-      developer_token: devToken,
-    });
-
-    const customer = client.Customer({
-      customer_id: customerId,
-      login_customer_id: loginCustomerId || undefined,
-      refresh_token: 'dummy_token',
-      credentials: { refresh_token: 'dummy_token' },
-    });
-
-    // Override getAccessToken per usare il JWT del Service Account
-    (customer as any).getAccessToken = async () => accessToken;
+    // Versione API Google Ads verificata funzionante con questo account/token.
+    const apiVersion = process.env.GOOGLE_ADS_API_VERSION || 'v24';
 
     let duringClause = 'segments.date DURING LAST_7_DAYS';
     if (datePreset === 'today') {
@@ -176,17 +169,44 @@ async function fetchGoogleAds(datePreset: string) {
         metrics.conversions
       FROM campaign
       WHERE ${duringClause}
+        AND campaign.status != 'REMOVED'
     `;
 
-    const results = await customer.query(query);
+    // Chiamata REST diretta a googleAds:search (con paginazione difensiva).
+    const searchUrl = `https://googleads.googleapis.com/${apiVersion}/customers/${customerId}/googleAds:search`;
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      'developer-token': devToken,
+    };
+    if (loginCustomerId) headers['login-customer-id'] = loginCustomerId;
+
+    const results: any[] = [];
+    let pageToken: string | undefined;
+    for (let page = 0; page < 10; page++) {
+      const resp = await fetch(searchUrl, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ query, pageToken }),
+      });
+      if (!resp.ok) {
+        const body = await resp.text();
+        return { error: true, message: `Errore Google Ads API (${resp.status}): ${body.slice(0, 300)}` };
+      }
+      const data: any = await resp.json();
+      if (Array.isArray(data.results)) results.push(...data.results);
+      if (!data.nextPageToken) break;
+      pageToken = data.nextPageToken;
+    }
 
     const campaigns: CampaignReport[] = results.map((row: any) => {
-      const spendEur = (row.metrics?.cost_micros || 0) / 1000000;
-      const impressions = row.metrics?.impressions || 0;
-      const clicks = row.metrics?.clicks || 0;
-      const ctr = (row.metrics?.ctr || 0) * 100;
-      const cpcEur = (row.metrics?.average_cpc || 0) / 1000000;
-      const conversions = row.metrics?.conversions || 0;
+      // La REST restituisce i metrics in camelCase e come stringhe.
+      const spendEur = Number(row.metrics?.costMicros || 0) / 1000000;
+      const impressions = Number(row.metrics?.impressions || 0);
+      const clicks = Number(row.metrics?.clicks || 0);
+      const ctr = Number(row.metrics?.ctr || 0) * 100;
+      const cpcEur = Number(row.metrics?.averageCpc || 0) / 1000000;
+      const conversions = Number(row.metrics?.conversions || 0);
 
       return {
         id: String(row.campaign?.id),
