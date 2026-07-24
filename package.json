@@ -19,6 +19,7 @@
     "@keystatic/astro": "^5.1.0",
     "@keystatic/core": "^0.5.50",
     "astro": "^5.0.0",
+    "google-auth-library": "^10.9.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "vite": "^6.4.1"
