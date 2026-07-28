@@ -1,0 +1,299 @@
+---
+import { googleMarketingConfig } from '../lib/googleMarketingConfig.js';
+
+const pixelId = import.meta.env.PUBLIC_META_PIXEL_ID;
+const googleAdsId = import.meta.env.PUBLIC_GOOGLE_ADS_ID || googleMarketingConfig.adsId;
+const ga4MeasurementId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID || googleMarketingConfig.ga4MeasurementId;
+const googleConversionLabel = import.meta.env.PUBLIC_GOOGLE_ADS_CONVERSION_LABEL || googleMarketingConfig.leadConversionLabel;
+const googleWhatsappConversionLabel = googleMarketingConfig.whatsappConversionLabel;
+const googlePhoneConversionLabel = googleMarketingConfig.phoneConversionLabel;
+const hasMarketingTags = Boolean(pixelId || googleAdsId);
+---
+
+{hasMarketingTags && (
+  <>
+    <div id="pixelConsent" class="pixel-consent" hidden>
+      <p>Usiamo cookie di marketing Meta e Google per misurare le campagne. Puoi accettarli o rifiutarli.</p>
+      <div>
+        <a href="/privacy">Informativa</a>
+        <button type="button" id="rejectMarketingTags">Rifiuta</button>
+        <button type="button" id="acceptMarketingTags">Accetta</button>
+      </div>
+    </div>
+
+    <script define:vars={{ pixelId, googleAdsId, ga4MeasurementId, googleConversionLabel, googleWhatsappConversionLabel, googlePhoneConversionLabel }} is:inline>
+      const consentKey = 'natango_marketing_consent';
+      const pendingConversionKey = 'natango_pending_lead_conversion';
+      const consentBanner = document.getElementById('pixelConsent');
+      const acceptButton = document.getElementById('acceptMarketingTags');
+      const rejectButton = document.getElementById('rejectMarketingTags');
+      const currentConsent = window.localStorage.getItem(consentKey);
+
+      function updateGoogleConsent(granted) {
+        if (!window.gtag) return;
+        const value = granted ? 'granted' : 'denied';
+        window.gtag('consent', 'update', {
+          ad_storage: value,
+          analytics_storage: value,
+          ad_user_data: value,
+          ad_personalization: value,
+        });
+      }
+
+      function loadGoogleTag() {
+        if (!googleAdsId || window.gtag) return;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function() {
+          window.dataLayer.push(arguments);
+        };
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          analytics_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          wait_for_update: 500,
+        });
+        window.gtag('set', 'ads_data_redaction', true);
+        window.gtag('set', 'url_passthrough', true);
+        if (currentConsent === 'accepted') updateGoogleConsent(true);
+        window.gtag('js', new Date());
+        window.gtag('config', googleAdsId);
+        if (ga4MeasurementId) window.gtag('config', ga4MeasurementId);
+
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleAdsId)}`;
+        document.head.appendChild(script);
+      }
+
+      function loadMetaPixel() {
+        if (!pixelId || window.fbq) {
+          return;
+        }
+
+        !(function(f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function() {
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = true;
+          n.version = '2.0';
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = true;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+        window.fbq('init', pixelId);
+        window.fbq('track', 'PageView');
+      }
+
+      function normalizeEnhancedData(email, phone) {
+        const normalizedEmail = String(email || '').trim().toLowerCase();
+        let normalizedPhone = String(phone || '').trim().replace(/[^\d+]/g, '');
+        if (normalizedPhone.startsWith('00')) normalizedPhone = `+${normalizedPhone.slice(2)}`;
+        if (normalizedPhone && !normalizedPhone.startsWith('+') && /^3\d{9}$/.test(normalizedPhone)) {
+          normalizedPhone = `+39${normalizedPhone}`;
+        }
+        return {
+          ...(normalizedEmail ? { email: normalizedEmail } : {}),
+          ...(normalizedPhone ? { phone_number: normalizedPhone } : {}),
+        };
+      }
+
+      function sendGoogleConversion(label, parameters = {}, waitForCallback = false) {
+        if (!window.gtag || !googleAdsId || !label) return Promise.resolve();
+
+        return new Promise((resolve) => {
+          let completed = false;
+          const done = () => {
+            if (completed) return;
+            completed = true;
+            resolve();
+          };
+          window.gtag('event', 'conversion', {
+            send_to: `${googleAdsId}/${label}`,
+            transport_type: 'beacon',
+            ...parameters,
+            ...(waitForCallback ? { event_callback: done, event_timeout: 900 } : {}),
+          });
+          if (!waitForCallback) done();
+          else window.setTimeout(done, 1100);
+        });
+      }
+
+      async function trackLeadConversion(conversion) {
+        if (!conversion?.id) return;
+        const marketingAccepted = window.localStorage.getItem(consentKey) === 'accepted';
+
+        if (marketingAccepted && window.gtag) {
+          const userData = normalizeEnhancedData(conversion.email, conversion.phone);
+          if (Object.keys(userData).length > 0) window.gtag('set', 'user_data', userData);
+        }
+
+        if (marketingAccepted && window.fbq && pixelId) {
+          window.fbq('track', 'Lead', {
+            content_name: conversion.offer || 'contatto',
+            content_category: 'Tango Argentino Roma',
+          });
+        }
+
+        await sendGoogleConversion(googleConversionLabel, { transaction_id: conversion.id }, true);
+
+        navigator.sendBeacon?.(
+          '/api/pixel-debug',
+          new Blob(
+            [
+              JSON.stringify({
+                eventName: 'Lead',
+                href: window.location.href,
+                offer: conversion.offer || 'contatto',
+                consent: marketingAccepted ? 'granted' : 'denied',
+              }),
+            ],
+            { type: 'application/json' },
+          ),
+        );
+        window.sessionStorage.removeItem(pendingConversionKey);
+      }
+
+      window.natangoTrackLeadConversion = trackLeadConversion;
+
+      async function trackPendingLeadConversion() {
+        const rawConversion = window.sessionStorage.getItem(pendingConversionKey);
+        if (!rawConversion) return;
+
+        let conversion;
+        try {
+          conversion = JSON.parse(rawConversion);
+        } catch {
+          window.sessionStorage.removeItem(pendingConversionKey);
+          return;
+        }
+
+        const createdAt = Date.parse(conversion.createdAt || '');
+        const isRecent = Number.isFinite(createdAt) && Date.now() - createdAt < 30 * 60 * 1000;
+        if (!isRecent) {
+          window.sessionStorage.removeItem(pendingConversionKey);
+          return;
+        }
+
+        await trackLeadConversion(conversion);
+      }
+
+      function trackContactClick(anchor) {
+        const href = anchor.href || '';
+        const isWhatsapp = href.startsWith('https://wa.me/') || href.startsWith('https://api.whatsapp.com/');
+        const isPhone = href.startsWith('tel:');
+        if (!isWhatsapp && !isPhone) return;
+
+        const eventName = isWhatsapp ? 'natango_whatsapp_click' : 'natango_phone_click';
+        const label = isWhatsapp ? googleWhatsappConversionLabel : googlePhoneConversionLabel;
+        if (window.gtag && ga4MeasurementId) {
+          window.gtag('event', eventName, {
+            send_to: ga4MeasurementId,
+            link_url: href,
+            transport_type: 'beacon',
+          });
+        }
+        void sendGoogleConversion(label, { value: 0, currency: 'EUR' });
+      }
+
+      loadGoogleTag();
+      if (currentConsent === 'accepted') {
+        loadMetaPixel();
+      } else if (!currentConsent && consentBanner) {
+        consentBanner.hidden = false;
+      }
+      void trackPendingLeadConversion();
+
+      acceptButton?.addEventListener('click', () => {
+        window.localStorage.setItem(consentKey, 'accepted');
+        window.localStorage.removeItem('natango_meta_pixel_consent');
+        consentBanner.hidden = true;
+        updateGoogleConsent(true);
+        loadMetaPixel();
+      });
+
+      rejectButton?.addEventListener('click', () => {
+        window.localStorage.setItem(consentKey, 'rejected');
+        window.localStorage.removeItem('natango_meta_pixel_consent');
+        updateGoogleConsent(false);
+        consentBanner.hidden = true;
+      });
+
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const anchor = target.closest('a[href]');
+        if (anchor instanceof HTMLAnchorElement) trackContactClick(anchor);
+      });
+
+      document.querySelectorAll('[data-marketing-consent-settings]').forEach((button) => {
+        button.addEventListener('click', () => {
+          if (consentBanner) consentBanner.hidden = false;
+        });
+      });
+    </script>
+
+    <style>
+      .pixel-consent {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 1200;
+        width: min(360px, calc(100vw - 36px));
+        padding: 16px;
+        color: #ffffff;
+        background: #15171c;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+      }
+
+      .pixel-consent p {
+        margin: 0 0 12px;
+        color: #d8dce4;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .pixel-consent div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      .pixel-consent a {
+        margin-right: auto;
+        color: #9edcff;
+        font-size: 12px;
+        text-decoration: underline;
+      }
+
+      .pixel-consent button {
+        min-height: 38px;
+        padding: 0 13px;
+        color: #ffffff;
+        background: #1d2027;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 6px;
+        font: inherit;
+        font-size: 13px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .pixel-consent button:last-child {
+        background: #1c8ed6;
+        border-color: #1c8ed6;
+      }
+    </style>
+  </>
+)}

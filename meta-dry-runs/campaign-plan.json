@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-07-21T16:06:57.659Z",
+  "updatedAt": "2026-07-21T16:06:57.659Z",
+  "dryRun": true,
+  "writeCallsAllowed": false,
+  "policyPath": "config/meta-ads-policy.json",
+  "account": {
+    "id": "act_1088446485620774",
+    "name": "Francesca Del Buono - Natango",
+    "currency": "EUR",
+    "timezone": "Europe/Rome"
+  },
+  "campaign": {
+    "name": "Natango | Corsi Tango Argentino Roma | Principianti",
+    "objective": "OUTCOME_LEADS",
+    "status": "PAUSED",
+    "specialAdCategories": [],
+    "dailyBudgetEur": 5,
+    "durationDays": 10,
+    "destinationUrl": "https://www.natango.org/corso-settembre"
+  },
+  "budgetGuard": {
+    "maxDailyBudgetEur": 5,
+    "absoluteMaxDailyBudgetEur": 50,
+    "maxCampaignBudgetEur": 50,
+    "absoluteMaxCampaignBudgetEur": 500
+  },
+  "adSets": [
+    {
+      "name": "Roma +12 km | Principianti e interessati al tango",
+      "status": "PAUSED",
+      "optimizationGoal": "LEAD_GENERATION",
+      "billingEvent": "IMPRESSIONS",
+      "targetingDraft": {
+        "geoLocations": {
+          "cities": [
+            "Roma"
+          ]
+        },
+        "ageMin": 25,
+        "ageMax": 65,
+        "placements": [
+          "facebook_feed",
+          "instagram_feed",
+          "instagram_stories",
+          "instagram_reels"
+        ]
+      }
+    }
+  ],
+  "ads": [
+    {
+      "name": "Abbraccio, tecnica, musicalità | Principianti Assoluti",
+      "status": "PAUSED",
+      "format": "single_video",
+      "primaryText": "Scopri il tango argentino con Francesca Del Buono: studio dell’abbraccio, connessione con il partner e improvvisazione in pista.",
+      "headline": "Prova una lezione da Natango",
+      "description": "Sedi a Roma: Tango Loft e Gotan Club.",
+      "callToAction": "CONTACT_US",
+      "destinationUrl": "https://www.natango.org/corso-settembre",
+      "mediaAssetId": "cc3f3f8b-1044-46d9-910e-9455b7e0d3da"
+    },
+    {
+      "name": "Promo mese gratuito | Principianti Primi Passi",
+      "status": "PAUSED",
+      "format": "single_video",
+      "primaryText": "Vuoi iniziare tango argentino a Roma? Da Natango trovi un ambiente accogliente, didattica professionale ed il primo mese gratuito!",
+      "headline": "Tango argentino a Roma",
+      "description": "Corsi per principianti assoluti e livelli intermedi.",
+      "callToAction": "CONTACT_US",
+      "destinationUrl": "https://www.natango.org/corso-settembre",
+      "mediaAssetId": "cc3f3f8b-1044-46d9-910e-9455b7e0d3da"
+    }
+  ],
+  "mediaAssets": [
+    {
+      "id": "cc3f3f8b-1044-46d9-910e-9455b7e0d3da",
+      "originalName": "Locandina principianti 2026.mp4",
+      "storedPath": "meta-assets/cc3f3f8b-1044-46d9-910e-9455b7e0d3da.mp4",
+      "size": 6537663,
+      "mimeType": "video/mp4",
+      "uploadedAt": "2026-07-21T16:06:57.659Z",
+      "status": "local_only",
+      "storage": "local"
+    }
+  ],
+  "safetyChecks": {
+    "noMetaWriteCallsMade": true,
+    "tokenIncludedInOutput": false,
+    "budgetWithinPolicy": true,
+    "requiresHumanApprovalBeforeMetaCreate": true
+  },
+  "tracking": {
+    "pixelId": "3144834565717555",
+    "pixelName": "Natango Website Pixel",
+    "activeEvents": [
+      "PageView",
+      "Lead"
+    ],
+    "leadEventName": "Lead",
+    "preferredLeadPath": "website_lead_form"
+  },
+  "approval": {
+    "approved": true,
+    "approvedAt": "2026-07-21T16:06:57.659Z",
+    "approvedBy": "user",
+    "approvalType": "explicit_user_chat_confirmation",
+    "scope": "meta_create_paused_only",
+    "allowsMetaPublish": false
+  },
+  "startRequest": {
+    "requestedAt": "2026-07-21T16:06:57.659Z",
+    "requestedBy": "user",
+    "status": "meta_draft_created_paused",
+    "allowsPublish": false
+  },
+  "actionLog": [],
+  "metaDraft": {
+    "creationKey": "32cc4553",
+    "status": "completed_paused",
+    "createdAt": "2026-07-21T16:06:57.662Z",
+    "updatedAt": "2026-07-21T16:07:54.983Z",
+    "campaignId": "120250661175670548",
+    "adSetIds": [
+      "120250661175930548"
+    ],
+    "media": {
+      "cc3f3f8b-1044-46d9-910e-9455b7e0d3da": {
+        "kind": "video",
+        "id": "27499328409747567",
+        "fingerprint": "76e858130124d81dd3004ddf250dac240420f537dd8bbf84938233d897f043ae"
+      }
+    },
+    "creativeIds": [
+      "1328814012665918",
+      "878344654920371"
+    ],
+    "adIds": [
+      "120250661176520548",
+      "120250661177300548"
+    ],
+    "allObjectsPaused": true,
+    "allowsPublish": false,
+    "completedAt": "2026-07-21T16:07:54.983Z"
+  }
+}

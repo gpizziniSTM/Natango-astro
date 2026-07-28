@@ -30,3 +30,7 @@ pnpm-debug.log*
 .vercel/
 .vercel
 .env*
+!.env.example
+data/*.local.json
+data/*.local.txt
+meta-assets/

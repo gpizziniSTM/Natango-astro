@@ -1,0 +1,187 @@
+---
+import Layout from '../layouts/Layout.astro';
+import generalSettings from '../content/settings/general.json';
+---
+
+<Layout
+  title="Informativa sulla privacy | Accademia Natango"
+  description="Informativa sul trattamento dei dati personali degli utenti del sito Accademia Natango."
+>
+  <main class="privacy-page">
+    <div class="container privacy-container">
+      <header class="privacy-header">
+        <span>Accademia Natango</span>
+        <h1>Informativa sulla privacy</h1>
+        <p>Ultimo aggiornamento: 22 luglio 2026</p>
+      </header>
+
+      <section>
+        <h2>1. Titolare del trattamento</h2>
+        <p>
+          Il titolare del trattamento è <strong>Accademia GOTANGO ASD</strong>, che opera attraverso
+          Accademia Natango. Per richieste relative alla privacy puoi scrivere a
+          <a href={`mailto:${generalSettings.email}`}>{generalSettings.email}</a> o telefonare al
+          <a href={`tel:${generalSettings.phone.replace(/\s+/g, '')}`}>{generalSettings.phone}</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Dati trattati</h2>
+        <p>Quando utilizzi il sito possiamo trattare:</p>
+        <ul>
+          <li>dati di contatto inseriti nel modulo: nome, cognome, email e telefono;</li>
+          <li>preferenze sulla sede, livello di esperienza e contenuto del messaggio;</li>
+          <li>dati tecnici di navigazione, come indirizzo IP, browser, dispositivo e log di sicurezza;</li>
+          <li>dati relativi a visualizzazioni e richieste di contatto, nel rispetto della scelta sui cookie di marketing;</li>
+          <li>email e telefono normalizzati, trasmessi a Google in forma protetta per migliorare l'attribuzione delle conversioni soltanto dopo il consenso.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. Finalità e basi giuridiche</h2>
+        <p>I dati sono utilizzati per:</p>
+        <ul>
+          <li>rispondere alle richieste e organizzare la lezione di prova, sulla base di misure precontrattuali richieste dall'interessato;</li>
+          <li>gestire i corsi e le comunicazioni necessarie alla prestazione richiesta;</li>
+          <li>proteggere il sito, prevenire abusi e adempiere a obblighi di legge;</li>
+          <li>misurare l'efficacia delle campagne pubblicitarie tramite Meta Pixel, Google Analytics 4 e Google Ads, nel rispetto della scelta sul consenso.</li>
+        </ul>
+        <p>I dati raccolti dal modulo non vengono usati per comunicazioni promozionali senza uno specifico consenso.</p>
+      </section>
+
+      <section>
+        <h2>4. Fornitori e destinatari</h2>
+        <p>I dati possono essere trattati da fornitori tecnici necessari al funzionamento del sito:</p>
+        <ul>
+          <li><strong>Web3Forms</strong>, per ricevere e inoltrare le richieste inviate dal modulo;</li>
+          <li><strong>Vercel</strong>, per hosting, distribuzione e sicurezza del sito;</li>
+          <li><strong>Meta Platforms</strong>, per misurazione pubblicitaria tramite Meta Pixel dopo il consenso;</li>
+          <li><strong>Google</strong>, per Google Analytics 4, Consent Mode, misurazione delle campagne Google Ads e conversioni avanzate dopo il consenso.</li>
+        </ul>
+        <p>
+          Alcuni fornitori possono trattare dati fuori dallo Spazio Economico Europeo applicando gli strumenti di
+          trasferimento previsti dalla normativa vigente. Consulta anche
+          <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noreferrer">l'informativa privacy di Meta</a> e
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">l'informativa privacy di Google</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Cookie di marketing, Meta Pixel e Google Ads</h2>
+        <p>
+          Il sito conserva la scelta relativa al consenso nel browser. Meta Pixel viene caricato soltanto dopo
+          l'accettazione. Il Google tag usa Consent Mode v2: prima del consenso opera con archiviazione pubblicitaria,
+          analitica, dati pubblicitari e personalizzazione negate; dopo l'accettazione aggiorna tali segnali a
+          consentiti. In caso di rifiuto Google può ricevere segnali tecnici privi di cookie e identificatori
+          pubblicitari, utilizzabili per misurazioni aggregate e modellate.
+        </p>
+        <p>
+          Dopo l'invio riuscito del modulo, e soltanto con consenso, email e telefono possono essere normalizzati e
+          trasmessi tramite il Google tag per le conversioni avanzate; Google applica la protezione prevista dal
+          servizio prima dell'elaborazione. I clic su WhatsApp e telefono sono misurati come azioni secondarie e non
+          sostituiscono l'invio del modulo come obiettivo principale. Puoi modificare la scelta in qualsiasi momento
+          usando “Preferenze cookie” nel piè di pagina.
+        </p>
+      </section>
+
+      <section>
+        <h2>6. Conservazione</h2>
+        <p>
+          Le richieste di contatto sono conservate per il tempo necessario a rispondere e gestire il rapporto,
+          normalmente non oltre 24 mesi, salvo obblighi di legge o necessità di tutela. I log tecnici e i dati di
+          misurazione sono conservati secondo i tempi dei rispettivi fornitori e le impostazioni configurate.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Diritti dell'interessato</h2>
+        <p>
+          Puoi chiedere accesso, rettifica, cancellazione, limitazione, portabilità o opposizione al trattamento e
+          revocare il consenso senza pregiudicare i trattamenti già effettuati. Scrivi a
+          <a href={`mailto:${generalSettings.email}`}>{generalSettings.email}</a>. Puoi inoltre proporre reclamo al
+          Garante per la protezione dei dati personali.
+        </p>
+      </section>
+
+      <section>
+        <h2>8. Aggiornamenti</h2>
+        <p>
+          Questa informativa può essere aggiornata per riflettere modifiche al sito, ai servizi utilizzati o alla
+          normativa. La data dell'ultima revisione è indicata all'inizio della pagina.
+        </p>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .privacy-page {
+    padding: 9rem 0 5rem;
+    background: #0a0a0a;
+  }
+
+  .privacy-container {
+    max-width: 880px;
+  }
+
+  .privacy-header {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .privacy-header span {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--accent-gold);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .privacy-header h1 {
+    margin-bottom: 0.75rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .privacy-header p,
+  section p,
+  section li {
+    color: var(--text-secondary);
+  }
+
+  section {
+    padding: 1.25rem 0;
+  }
+
+  section h2 {
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+  }
+
+  section p,
+  section li {
+    line-height: 1.75;
+  }
+
+  section ul {
+    margin: 0.75rem 0 0.75rem 1.25rem;
+  }
+
+  section li + li {
+    margin-top: 0.45rem;
+  }
+
+  section a {
+    color: #55bdf5;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 640px) {
+    .privacy-page {
+      padding-top: 7rem;
+    }
+  }
+</style>

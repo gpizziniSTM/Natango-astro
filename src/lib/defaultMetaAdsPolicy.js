@@ -1,0 +1,65 @@
+export const defaultMetaAdsPolicy = {
+  version: 1,
+  account: {
+    id: 'act_1088446485620774',
+    name: 'Francesca Del Buono - Natango',
+    currency: 'EUR',
+    timezone: 'Europe/Rome',
+  },
+  budget: {
+    maxDailyBudgetEur: 50,
+    initialDailyBudgetEur: 50,
+    absoluteMaxDailyBudgetEur: 50,
+    maxCampaignBudgetEur: 500,
+    absoluteMaxCampaignBudgetEur: 500,
+  },
+  media: {
+    maxFileSizeMb: 25,
+    allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'video/mp4', 'video/quicktime'],
+  },
+  tracking: {
+    pixelId: '3144834565717555',
+    pixelName: 'Natango Website Pixel',
+    events: ['PageView', 'Lead'],
+    leadEventName: 'Lead',
+  },
+  identity: {
+    pageId: '459149054477762',
+    pageName: 'Nat Scuola Di Tango Argentino a Roma',
+    instagramUserId: null,
+  },
+  transparency: {
+    dsaBeneficiary: 'Accademia GOTANGO ASD',
+    dsaPayor: 'Accademia GOTANGO ASD',
+  },
+  targeting: {
+    romeCityKey: '1188733',
+    romeCenterLatitude: 41.9028,
+    romeCenterLongitude: 12.4964,
+    romeRadiusKm: 12,
+    locationTypes: ['home'],
+  },
+  access: {
+    defaultMode: 'create_paused_only',
+    allowRead: true,
+    allowCreate: true,
+    allowUpdate: false,
+    allowPublish: false,
+    requireHumanApprovalFor: [
+      'campaign_create',
+      'campaign_update',
+      'adset_create',
+      'adset_update',
+      'ad_create',
+      'ad_update',
+      'budget_change',
+      'status_change',
+    ],
+  },
+  guards: {
+    neverCommitAccessToken: true,
+    dryRunByDefault: true,
+    stopOnAccountMismatch: true,
+    stopOnBudgetAboveCap: true,
+  },
+};

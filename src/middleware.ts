@@ -1,7 +1,48 @@
 import { defineMiddleware } from 'astro:middleware';
+import { getAuthCookieName, getAuthStateFromCookie } from './lib/metaDashboardAuth';
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, request } = context;
+  const authPaths = [
+    '/meta-dashboard',
+    '/meta-campaigns',
+    '/api/meta-dashboard',
+    '/api/meta-campaigns',
+    '/google-dashboard',
+    '/api/google-dashboard',
+  ];
+
+  if (authPaths.some((path) => url.pathname === path || url.pathname.startsWith(`${path}/`))) {
+    const authState = getAuthStateFromCookie(context.cookies.get(getAuthCookieName())?.value);
+
+    if (!authState.authenticated) {
+      return context.redirect('/meta-login', 303);
+    }
+
+    if (authState.forcePasswordChange) {
+      return context.redirect('/meta-change-password', 303);
+    }
+  }
+
+  if (url.pathname === '/meta-login') {
+    const authState = getAuthStateFromCookie(context.cookies.get(getAuthCookieName())?.value);
+
+    if (authState.authenticated && !authState.forcePasswordChange) {
+      return context.redirect('/meta-dashboard', 303);
+    }
+  }
+
+  if (url.pathname === '/meta-change-password') {
+    const authState = getAuthStateFromCookie(context.cookies.get(getAuthCookieName())?.value);
+
+    if (!authState.authenticated) {
+      return context.redirect('/meta-login', 303);
+    }
+
+    if (!authState.forcePasswordChange) {
+      return context.redirect('/meta-dashboard', 303);
+    }
+  }
 
   // Intercettiamo i path relativi a Keystatic GitHub OAuth per correggere il redirect_uri
   if (url.pathname.includes('/api/keystatic/github')) {

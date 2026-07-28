@@ -1,0 +1,307 @@
+---
+import MetaActiveCampaigns from '../components/MetaActiveCampaigns.jsx';
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Natango Ads | Campagne attive</title>
+    <link rel="icon" type="image/png" href="/wp-content/uploads/2025/11/logo-natango-150x150.png" sizes="32x32" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <MetaActiveCampaigns client:load />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --dash-bg: #0c0d10;
+    --dash-panel: #15171c;
+    --dash-panel-2: #1d2027;
+    --dash-line: rgba(255, 255, 255, 0.1);
+    --dash-text: #f6f7fb;
+    --dash-muted: #aeb4c0;
+    --dash-blue: #1c8ed6;
+    --dash-green: #25b47e;
+    --dash-amber: #d69a2d;
+    --dash-red: #d85252;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    min-width: 320px;
+    margin: 0;
+    background: var(--dash-bg);
+    color: var(--dash-text);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+
+  .dashboard-shell {
+    width: 100%;
+    min-height: 100vh;
+    padding: 18px;
+  }
+
+  .dashboard-topbar,
+  .status-strip,
+  .campaigns-panel {
+    max-width: 1440px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .dashboard-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 64px;
+    margin-bottom: 18px;
+  }
+
+  .brand,
+  .primary-button,
+  .secondary-button,
+  .icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--dash-text);
+    text-decoration: none;
+  }
+
+  .brand {
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .brand img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+  }
+
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .topbar-actions form {
+    margin: 0;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .icon-button {
+    min-height: 40px;
+    padding: 0 14px;
+    color: var(--dash-text);
+    background: var(--dash-panel-2);
+    border: 1px solid var(--dash-line);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .secondary-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .compact-button {
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .icon-button {
+    width: 42px;
+    padding: 0;
+  }
+
+  .status-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .status-strip > div,
+  .panel {
+    background: var(--dash-panel);
+    border: 1px solid var(--dash-line);
+    border-radius: 8px;
+  }
+
+  .status-strip > div {
+    min-height: 92px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .status-strip span,
+  .eyebrow {
+    color: var(--dash-muted);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .status-strip strong {
+    font-size: 18px;
+  }
+
+  .status-strip small {
+    color: var(--dash-muted);
+    font-size: 12px;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .panel-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    margin: 4px 0 0;
+    font-size: 26px;
+    line-height: 1.12;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .pill.ok {
+    color: #dff8ee;
+    background: rgba(37, 180, 126, 0.18);
+  }
+
+  .pill.warn {
+    color: #ffe7bf;
+    background: rgba(214, 154, 45, 0.16);
+  }
+
+  .empty-state {
+    min-height: 260px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 10px;
+    color: var(--dash-muted);
+    border: 1px dashed var(--dash-line);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .empty-state i {
+    font-size: 34px;
+  }
+
+  .empty-state strong {
+    color: var(--dash-text);
+    font-size: 18px;
+  }
+
+  .error-state {
+    color: #ffd2d2;
+    border-color: rgba(216, 82, 82, 0.36);
+    background: rgba(216, 82, 82, 0.08);
+  }
+
+  .campaign-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--dash-line);
+    border-radius: 8px;
+  }
+
+  .campaign-table {
+    width: 100%;
+    min-width: 980px;
+    border-collapse: collapse;
+  }
+
+  .campaign-table th,
+  .campaign-table td {
+    padding: 14px;
+    border-bottom: 1px solid var(--dash-line);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .campaign-table th {
+    color: var(--dash-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .campaign-table td {
+    font-size: 13px;
+  }
+
+  .campaign-table td strong,
+  .campaign-table td small {
+    display: block;
+  }
+
+  .campaign-table td small {
+    margin-top: 4px;
+    color: var(--dash-muted);
+  }
+
+  .campaign-table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 720px) {
+    .dashboard-shell {
+      padding: 12px;
+    }
+
+    .dashboard-topbar {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 23px;
+    }
+  }
+</style>

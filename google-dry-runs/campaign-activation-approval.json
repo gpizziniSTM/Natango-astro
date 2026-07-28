@@ -1,0 +1,32 @@
+{
+  "approved": true,
+  "approvedAt": "2026-07-22T12:21:05Z",
+  "approvedBy": "user_chat_authorization",
+  "scope": "enable_existing_approved_search_campaign",
+  "accountId": "6934226615",
+  "campaignId": "24061339564",
+  "allowsCampaignEnable": true,
+  "dailyBudgetEur": 3,
+  "expected": {
+    "campaigns": 1,
+    "adGroups": 3,
+    "keywords": 15,
+    "responsiveSearchAds": 3,
+    "allAdsApproved": true,
+    "startDate": "2026-07-22",
+    "endDate": "2026-10-31",
+    "adSchedule": "07:00-23:00"
+  },
+  "execution": {
+    "status": "completed",
+    "executedAt": "2026-07-22T12:22:14Z",
+    "campaignStatus": "ENABLED",
+    "campaignPrimaryStatus": "ELIGIBLE",
+    "adGroupsEnabled": 3,
+    "keywordsEnabled": 15,
+    "adsEnabled": 3,
+    "dailyBudgetEurApplied": 3,
+    "verifiedByReadOnlyAudit": true,
+    "reviewMonitorStatus": "PAUSED"
+  }
+}

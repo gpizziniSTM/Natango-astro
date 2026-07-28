@@ -6,7 +6,7 @@ const currentYear = new Date().getFullYear();
 <footer class="main-footer">
   <div class="container footer-grid">
     <div class="footer-info">
-      <a href="#" class="footer-logo">
+      <a href="/" class="footer-logo">
         <img src="/wp-content/uploads/2025/11/logo-natango-no-sf.png" alt="Logo Natango" />
         <span>{generalSettings.siteName}</span>
       </a>
@@ -18,10 +18,12 @@ const currentYear = new Date().getFullYear();
     <div class="footer-nav">
       <h3>Accademia</h3>
       <ul>
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#corsi-sez">Corsi & Orari</a></li>
-        <li><a href="#fdb-sez">Maestri</a></li>
-        <li><a href="#sedi-sez">Sedi</a></li>
+        <li><a href="/#hero">Home</a></li>
+        <li><a href="/#corsi-sez">Corsi & Orari</a></li>
+        <li><a href="/#fdb-sez">Maestri</a></li>
+        <li><a href="/#sedi-sez">Sedi</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><button type="button" class="footer-link-button" data-marketing-consent-settings>Preferenze cookie</button></li>
       </ul>
     </div>
 
@@ -111,6 +113,21 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer-nav a:hover {
+    color: var(--text-primary);
+    padding-left: 4px;
+  }
+
+  .footer-link-button {
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    font: inherit;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .footer-link-button:hover {
     color: var(--text-primary);
     padding-left: 4px;
   }

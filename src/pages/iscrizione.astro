@@ -1,0 +1,360 @@
+---
+import Layout from '../layouts/Layout.astro';
+import generalSettings from '../content/settings/general.json';
+
+const isSeptemberCampaign = Astro.url.searchParams.get('offerta') === 'settembre';
+const pageTitle = isSeptemberCampaign
+  ? 'Corso di tango principianti a Roma: 4 lezioni gratuite | Natango'
+  : 'Lezione di prova gratuita di Tango a Roma | Natango';
+const pageDescription = isSeptemberCampaign
+  ? 'Nuovo corso di tango argentino per principianti assoluti al Tango Loft: open day 21 settembre, lunedì 20:00–21:00 e prime 4 lezioni gratuite.'
+  : 'Iscriviti alla lezione di prova gratuita di tango argentino al Tango Loft di via del Mandrione. Puoi partecipare anche senza partner e senza esperienza.';
+const whatsappMessage = isSeptemberCampaign
+  ? 'Ciao, vorrei prenotare l’open day del 21 settembre o una prova per il corso principianti assoluti del lunedì al Tango Loft.'
+  : 'Ciao, vorrei iscrivermi a una lezione di prova gratuita di tango argentino al Tango Loft.';
+const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsappMessage)}`;
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+>
+  <main class="signup-page">
+    <section class="signup-hero">
+      <div class="hero-photo" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="container signup-hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class={isSeptemberCampaign ? 'fas fa-gift' : 'fas fa-heart'}></i> {isSeptemberCampaign ? 'Nuovo corso principianti assoluti' : 'La tua prima lezione è gratuita'}</span>
+          <h1>{isSeptemberCampaign ? 'Inizia il tango con' : 'Il tango comincia da un'} <span>{isSeptemberCampaign ? '4 lezioni gratuite.' : 'primo passo.'}</span></h1>
+          <p class="hero-lead">{isSeptemberCampaign ? 'Open day lunedì 21 settembre 2026. Il corso prosegue ogni lunedì dalle 20:00 alle 21:00 al Tango Loft, in via del Mandrione 109. Puoi iniziare da zero e iscriverti anche senza partner.' : 'Scopri il tango argentino al Tango Loft di via del Mandrione, in un ambiente accogliente e con una didattica attenta e professionale. Non serve esperienza e non è necessario iscriversi in coppia.'}</p>
+          <div class="hero-points" aria-label="I vantaggi della lezione di prova">
+            <span><i class="fas fa-check"></i> Nessuna esperienza richiesta</span>
+            <span><i class="fas fa-check"></i> Puoi venire anche da solo</span>
+            <span><i class="fas fa-check"></i> {isSeptemberCampaign ? 'Le prime 4 lezioni sono gratuite' : 'Prova senza impegno'}</span>
+          </div>
+          <a class="btn btn-red hero-cta" href="#modulo-iscrizione">{isSeptemberCampaign ? 'Prenota l’open day o una prova' : 'Prenota il tuo posto'} <i class="fas fa-arrow-down"></i></a>
+        </div>
+
+        <aside class="quick-card" aria-label={isSeptemberCampaign ? 'Informazioni sul corso di settembre' : 'Informazioni sulla lezione di prova'}>
+          <span class="quick-label">In breve</span>
+          <h2>{isSeptemberCampaign ? 'Tutto quello che serve per iniziare' : 'Una lezione per conoscerci'}</h2>
+          <div class="quick-item">
+            <i class="fas fa-location-dot"></i>
+            <div><strong>Tango Loft</strong><span>Via del Mandrione 109, Roma</span></div>
+          </div>
+          <div class="quick-item">
+            <i class="fas fa-calendar-days"></i>
+            <div><strong>{isSeptemberCampaign ? 'Lunedì 20:00–21:00' : 'Principianti benvenuti'}</strong><span>{isSeptemberCampaign ? 'Open day 21 settembre · corso dal 28 settembre' : 'Partiamo insieme dalle basi'}</span></div>
+          </div>
+          <div class="quick-item">
+            <i class="fas fa-euro-sign"></i>
+            <div><strong>{isSeptemberCampaign ? 'Prime 4 lezioni gratuite' : 'Lezione gratuita'}</strong><span>{isSeptemberCampaign ? 'Poi 60 €/mese · under 40: 40 €/mese' : 'Nessun vincolo di iscrizione'}</span></div>
+          </div>
+          {isSeptemberCampaign && (
+            <div class="quick-item">
+              <i class="fas fa-id-card"></i>
+              <div><strong>Quota associativa 5 €</strong><span>Valida per l’anno didattico</span></div>
+            </div>
+          )}
+        </aside>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Perché scegliere Natango">
+      <div class="container trust-grid">
+        <div><strong>25 anni</strong><span>di esperienza internazionale</span></div>
+        <div><strong>Tango Loft</strong><span>via del Mandrione 109, Roma</span></div>
+        <div><strong>Tutti i livelli</strong><span>dal primo passo all’avanzato</span></div>
+      </div>
+    </section>
+
+    <section class="section-padding experience-section">
+      <div class="container experience-grid">
+        <div class="experience-copy">
+          <span class="subtitle">La tua esperienza</span>
+          <h2>Cosa succede dopo la richiesta?</h2>
+          <p>{isSeptemberCampaign ? 'Puoi partecipare all’open day oppure iniziare più avanti: la prova e gli inserimenti continuano anche durante il corso.' : 'Ti accompagniamo con semplicità dalla richiesta fino al tuo primo abbraccio di tango.'}</p>
+        </div>
+        <ol class="steps-list">
+          <li><span>01</span><div><h3>Compila il modulo</h3><p>Lasciaci i tuoi contatti e raccontaci se hai già ballato oppure parti da zero.</p></div></li>
+          <li><span>02</span><div><h3>Ti ricontattiamo</h3><p>{isSeptemberCampaign ? 'Confermiamo il posto per il 21 settembre o concordiamo la prima lezione utile dopo l’open day.' : 'Confermiamo insieme il giorno e l’orario della prova al Tango Loft.'}</p></div></li>
+          <li><span>03</span><div><h3>{isSeptemberCampaign ? 'Inizia le tue 4 lezioni gratuite' : 'Vieni a provare'}</h3><p>{isSeptemberCampaign ? 'Le quattro lezioni gratuite decorrono dalla tua prima presenza. Poi scegli se continuare, senza obbligo.' : 'Abiti comodi, curiosità e voglia di ballare: al resto pensiamo noi.'}</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="modulo-iscrizione" class="section-padding form-section">
+      <div class="container form-grid">
+        <div class="form-intro">
+          <span class="subtitle">Prenota ora</span>
+          <h2>{isSeptemberCampaign ? 'Prenota il tuo primo incontro' : 'Iscriviti alla lezione di prova gratuita'}</h2>
+          <p>{isSeptemberCampaign ? 'Lasciaci i tuoi dati per partecipare all’open day del 21 settembre o per concordare una prova successiva. Ti ricontatteremo al più presto.' : 'Lasciaci i tuoi dati. Ti contatteremo al più presto per confermare la lezione gratuita al Tango Loft e rispondere alle tue domande.'}</p>
+
+          <div class="contact-box">
+            <p>Preferisci parlarne direttamente?</p>
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Scrivici su WhatsApp</a>
+            <a href={`tel:${generalSettings.phone.replace(/\s+/g, '')}`}><i class="fas fa-phone"></i> {generalSettings.phone}</a>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <form action="https://api.web3forms.com/submit" method="POST" class="signup-form" data-offer={isSeptemberCampaign ? 'settembre-4-lezioni' : 'lezione-prova'}>
+            <input type="hidden" name="access_key" value="04d77041-e95f-46b6-8bef-4a19fd658b46" />
+            <input type="hidden" name="subject" value={isSeptemberCampaign ? 'Nuova richiesta corso settembre - 4 lezioni gratuite - Natango' : 'Nuova iscrizione landing lezione di prova - Natango'} />
+            <input type="hidden" name="from_name" value="Landing Natango" />
+            <input type="hidden" name="sede" value="Tango Loft - Via del Mandrione 109" />
+            <input type="hidden" name="offerta" value={isSeptemberCampaign ? 'Prime 4 lezioni gratuite dal primo ingresso - settembre 2026' : 'Lezione di prova gratuita'} />
+            <input type="hidden" name="redirect" value={`https://natango.org/iscrizione-confermata?offerta=${isSeptemberCampaign ? 'settembre' : 'prova'}`} />
+            <input type="hidden" name="utm_source" value="" />
+            <input type="hidden" name="utm_medium" value="" />
+            <input type="hidden" name="utm_campaign" value="" />
+            <input type="hidden" name="utm_term" value="" />
+            <input type="hidden" name="utm_content" value="" />
+            <input type="hidden" name="gclid" value="" />
+            <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" />
+
+            <div class="form-row">
+              <div class="field">
+                <label for="signup-name">Nome *</label>
+                <input id="signup-name" name="name" type="text" autocomplete="given-name" required placeholder="Il tuo nome" />
+              </div>
+              <div class="field">
+                <label for="signup-surname">Cognome *</label>
+                <input id="signup-surname" name="surname" type="text" autocomplete="family-name" required placeholder="Il tuo cognome" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="signup-email">Email *</label>
+                <input id="signup-email" name="email" type="email" autocomplete="email" required placeholder="nome@email.it" />
+              </div>
+              <div class="field">
+                <label for="signup-phone">Telefono *</label>
+                <input id="signup-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="Il tuo numero" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field venue-field">
+                <span class="field-label">Sede del corso</span>
+                <div class="venue-value"><i class="fas fa-location-dot"></i><span><strong>Tango Loft</strong>Via del Mandrione 109, Roma</span></div>
+              </div>
+              <div class="field">
+                <label for="signup-level">Il tuo livello</label>
+                <select id="signup-level" name="livello">
+                  <option value="Principiante assoluto">Non ho mai ballato</option>
+                  <option value="Principiante">Ho già fatto qualche lezione</option>
+                  <option value="Intermedio o avanzato">Intermedio o avanzato</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="signup-message">C’è qualcosa che vuoi chiederci?</label>
+              <textarea id="signup-message" name="message" rows="4" placeholder="Scrivi qui eventuali domande o preferenze..."></textarea>
+            </div>
+
+            <label class="privacy-check" for="signup-privacy">
+              <input id="signup-privacy" name="privacy" type="checkbox" required />
+              <span>Ho letto e accetto l’<a href="/privacy" target="_blank">informativa sulla privacy</a>. *</span>
+            </label>
+
+            <button type="submit" class="btn btn-red submit-button">{isSeptemberCampaign ? 'Prenota il primo incontro' : 'Richiedi la lezione gratuita'} <i class="fas fa-arrow-right"></i></button>
+            <p class="form-status" role="status" aria-live="polite" hidden></p>
+            <p class="form-note"><i class="fas fa-lock"></i> I tuoi dati saranno usati solo per ricontattarti in merito alla richiesta.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-reassurance">
+      <div class="container reassurance-inner">
+        <i class="fas fa-quote-left"></i>
+        <div>
+          <h2>Non devi saper ballare. Devi solo avere voglia di iniziare.</h2>
+          <p>Accademia Natango · Tango argentino a Roma</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  const attributionFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid'];
+
+  document.querySelectorAll('.signup-form').forEach((form) => {
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const params = new URLSearchParams(window.location.search);
+    attributionFields.forEach((fieldName) => {
+      const input = form.elements.namedItem(fieldName);
+      if (input instanceof HTMLInputElement) input.value = params.get(fieldName) || '';
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity() || form.dataset.submitting === 'true') return;
+
+      const button = form.querySelector('button[type="submit"]');
+      const status = form.querySelector('.form-status');
+      const originalButtonHtml = button?.innerHTML || '';
+      form.dataset.submitting = 'true';
+      if (button instanceof HTMLButtonElement) {
+        button.disabled = true;
+        button.textContent = 'Invio in corso…';
+      }
+      if (status instanceof HTMLElement) {
+        status.hidden = true;
+        status.textContent = '';
+      }
+
+      try {
+        const payload = Object.fromEntries(new FormData(form).entries());
+        delete payload.redirect;
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || result.success !== true) {
+          throw new Error(result.message || result.body?.message || 'Invio non riuscito');
+        }
+
+        const conversion = {
+          id: window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`,
+          offer: form.dataset.offer || 'contatto',
+          createdAt: new Date().toISOString(),
+        };
+        window.sessionStorage.setItem('natango_pending_lead_conversion', JSON.stringify(conversion));
+        const tracker = (window as Window & {
+          natangoTrackLeadConversion?: (data: typeof conversion & { email?: string; phone?: string }) => Promise<void>;
+        }).natangoTrackLeadConversion;
+        try {
+          await tracker?.({
+            ...conversion,
+            email: String(payload.email || ''),
+            phone: String(payload.phone || ''),
+          });
+        } catch {
+          // La richiesta e stata ricevuta: un problema di misurazione non deve bloccare la conferma.
+        }
+        const destination = form.elements.namedItem('redirect');
+        window.location.assign(destination instanceof HTMLInputElement ? destination.value : '/iscrizione-confermata');
+      } catch (error) {
+        form.dataset.submitting = 'false';
+        if (button instanceof HTMLButtonElement) {
+          button.disabled = false;
+          button.innerHTML = originalButtonHtml;
+        }
+        if (status instanceof HTMLElement) {
+          status.hidden = false;
+          status.textContent = 'Non siamo riusciti a inviare la richiesta. Riprova oppure contattaci su WhatsApp.';
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  .signup-page { background: #0a0a0a; }
+  .signup-hero { min-height: 780px; position: relative; display: flex; align-items: center; overflow: hidden; padding: 9.5rem 0 5rem; }
+  .hero-photo { position: absolute; inset: 0; background: url('/wp-content/uploads/2025/11/DSC01833-scaled.jpg') center 34%/cover no-repeat; transform: scale(1.02); }
+  .hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,5,8,.96) 0%, rgba(5,5,8,.84) 45%, rgba(5,5,8,.3) 78%, rgba(5,5,8,.62) 100%), linear-gradient(0deg, #0a0a0a 0%, transparent 25%); }
+  .signup-hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(290px, .65fr); align-items: end; gap: 5rem; }
+  .hero-copy { max-width: 760px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: .65rem; padding: .55rem .9rem; border: 1px solid rgba(181,125,245,.4); background: rgba(155,81,224,.13); border-radius: 999px; color: #d8b9fb; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1.5rem; }
+  h1 { font-size: clamp(3.2rem, 7vw, 6.6rem); line-height: .98; letter-spacing: -.055em; max-width: 850px; }
+  h1 span { display: block; color: #44b8f5; }
+  .hero-lead { max-width: 680px; font-size: clamp(1.05rem, 2vw, 1.3rem); color: #d7d7dc; line-height: 1.65; margin: 1.8rem 0; }
+  .hero-points { display: flex; flex-wrap: wrap; gap: .8rem 1.5rem; color: #f3f3f5; font-size: .95rem; margin-bottom: 2rem; }
+  .hero-points span { display: flex; align-items: center; gap: .5rem; }
+  .hero-points i { color: #51c4ff; }
+  .hero-cta { display: inline-flex; align-items: center; gap: .8rem; padding: 1rem 1.4rem; border-radius: 8px; font-weight: 800; }
+  .quick-card { padding: 2rem; border: 1px solid rgba(255,255,255,.14); background: rgba(15,15,19,.76); backdrop-filter: blur(18px); border-radius: 18px; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+  .quick-label { color: #8bd4fa; font-weight: 800; font-size: .75rem; text-transform: uppercase; letter-spacing: .12em; }
+  .quick-card h2 { font-size: 1.6rem; margin: .5rem 0 1.4rem; }
+  .quick-item { display: grid; grid-template-columns: 42px 1fr; gap: .9rem; align-items: center; padding: 1rem 0; border-top: 1px solid rgba(255,255,255,.09); }
+  .quick-item > i { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; color: #63c9ff; background: rgba(6,147,227,.13); }
+  .quick-item strong, .quick-item span { display: block; }
+  .quick-item strong { font-size: .95rem; }
+  .quick-item span { color: #aaaab2; font-size: .82rem; margin-top: .12rem; }
+  .trust-strip { position: relative; z-index: 2; border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08); background: #0e0e11; }
+  .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .trust-grid > div { display: flex; align-items: baseline; justify-content: center; gap: .65rem; padding: 1.8rem; border-right: 1px solid rgba(255,255,255,.08); }
+  .trust-grid > div:last-child { border-right: 0; }
+  .trust-grid strong { color: #8fd7fd; font-size: 1.15rem; }
+  .trust-grid span { color: #a9a9b0; font-size: .88rem; }
+  .experience-section { background: #0a0a0a; }
+  .experience-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 6rem; align-items: start; }
+  .experience-copy { position: sticky; top: 8rem; }
+  .subtitle { color: #72cdfd; font-size: .8rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .experience-copy h2, .form-intro h2 { font-size: clamp(2.2rem, 4vw, 3.6rem); margin: .8rem 0 1.2rem; letter-spacing: -.035em; }
+  .experience-copy p, .form-intro > p { color: #aaaab2; font-size: 1.05rem; max-width: 520px; }
+  .steps-list { list-style: none; }
+  .steps-list li { display: grid; grid-template-columns: 72px 1fr; gap: 1.5rem; padding: 0 0 2.4rem; margin-bottom: 2.4rem; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .steps-list li:last-child { margin-bottom: 0; }
+  .steps-list > li > span { font-size: 2rem; font-weight: 800; color: #9b51e0; line-height: 1; }
+  .steps-list h3 { font-size: 1.45rem; margin-bottom: .55rem; }
+  .steps-list p { color: #a9a9b0; }
+  .form-section { scroll-margin-top: 90px; background: radial-gradient(circle at 8% 10%, rgba(155,81,224,.16), transparent 28%), #101014; border-top: 1px solid rgba(255,255,255,.08); }
+  .form-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 5rem; align-items: start; }
+  .contact-box { margin-top: 2.3rem; padding: 1.4rem; border-left: 3px solid #0693e3; background: rgba(255,255,255,.035); }
+  .contact-box p { color: #a9a9b0; font-size: .85rem; margin-bottom: .75rem; }
+  .contact-box a { display: flex; gap: .7rem; align-items: center; color: #f4f4f6; font-weight: 700; margin-top: .65rem; }
+  .contact-box a:hover { color: #7dd1fe; }
+  .form-card { padding: clamp(1.4rem, 4vw, 2.7rem); background: #17171c; border: 1px solid rgba(255,255,255,.12); border-radius: 20px; box-shadow: 0 25px 70px rgba(0,0,0,.3); }
+  .signup-form { display: grid; gap: 1.25rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .field { display: grid; gap: .5rem; }
+  .field label { color: #eeeef1; font-size: .88rem; font-weight: 700; }
+  .field-label { color: #eeeef1; font-size: .88rem; font-weight: 700; }
+  .venue-value { min-height: 53px; display: flex; align-items: center; gap: .8rem; border: 1px solid rgba(255,255,255,.14); border-radius: 8px; background: rgba(6,147,227,.08); padding: .7rem 1rem; color: #75cffd; }
+  .venue-value span, .venue-value strong { display: block; }
+  .venue-value span { color: #aaaab2; font-size: .78rem; line-height: 1.35; }
+  .venue-value strong { color: #fff; font-size: .9rem; }
+  .field input, .field select, .field textarea { width: 100%; border: 1px solid rgba(255,255,255,.14); border-radius: 8px; background: #0e0e12; color: #fff; padding: .9rem 1rem; font: inherit; outline: none; transition: border-color .2s, box-shadow .2s; }
+  .field input::placeholder, .field textarea::placeholder { color: #6f6f77; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: #2dadf1; box-shadow: 0 0 0 3px rgba(6,147,227,.16); }
+  .field textarea { resize: vertical; min-height: 110px; }
+  .privacy-check { display: flex; gap: .7rem; align-items: flex-start; color: #aaaab2; font-size: .8rem; line-height: 1.5; cursor: pointer; }
+  .privacy-check input { margin-top: .2rem; accent-color: #0693e3; }
+  .privacy-check a { color: #7dd1fe; text-decoration: underline; }
+  .submit-button { width: 100%; padding: 1rem 1.25rem; border-radius: 8px; display: flex; justify-content: center; align-items: center; gap: .8rem; font-size: 1rem; font-weight: 800; }
+  .submit-button:disabled { opacity: .7; cursor: wait; }
+  .form-status { padding: .8rem 1rem; color: #ffd6d6; background: rgba(180, 35, 35, .16); border: 1px solid rgba(255, 90, 90, .35); border-radius: 8px; font-size: .86rem; }
+  .form-note { color: #85858d; font-size: .76rem; text-align: center; }
+  .form-note i { margin-right: .3rem; }
+  .botcheck { display: none; }
+  .final-reassurance { padding: 4rem 0; background: linear-gradient(100deg, #087cbc, #68409b); }
+  .reassurance-inner { display: flex; gap: 1.8rem; align-items: center; justify-content: center; text-align: left; }
+  .reassurance-inner > i { font-size: 2.5rem; opacity: .5; }
+  .reassurance-inner h2 { font-size: clamp(1.5rem, 3vw, 2.4rem); max-width: 900px; }
+  .reassurance-inner p { color: rgba(255,255,255,.78); margin-top: .45rem; }
+
+  @media (max-width: 960px) {
+    .signup-hero { min-height: auto; }
+    .signup-hero-grid, .experience-grid, .form-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .quick-card { max-width: 560px; }
+    .experience-copy { position: static; }
+    .trust-grid > div { flex-direction: column; align-items: center; gap: .15rem; text-align: center; }
+  }
+
+  @media (max-width: 640px) {
+    .signup-hero { padding: 8.5rem 0 3.5rem; }
+    .hero-photo { background-position: 63% center; }
+    .hero-shade { background: linear-gradient(90deg, rgba(5,5,8,.95), rgba(5,5,8,.68)), linear-gradient(0deg, #0a0a0a 0%, transparent 30%); }
+    h1 { font-size: clamp(3rem, 15vw, 4.4rem); }
+    .hero-points { display: grid; }
+    .quick-card { padding: 1.35rem; }
+    .trust-grid { grid-template-columns: 1fr; padding: .5rem 0; }
+    .trust-grid > div { padding: 1rem; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .trust-grid > div:last-child { border-bottom: 0; }
+    .form-row { grid-template-columns: 1fr; }
+    .steps-list li { grid-template-columns: 54px 1fr; gap: 1rem; }
+    .reassurance-inner { align-items: flex-start; }
+  }
+</style>

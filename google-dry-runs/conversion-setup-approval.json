@@ -1,0 +1,30 @@
+{
+  "approved": true,
+  "approvedAt": "2026-07-22T10:06:58Z",
+  "approvedBy": "user_chat_authorization",
+  "scope": "create_website_lead_and_demote_three_outbound_click_actions",
+  "accountId": "6934226615",
+  "allowsConversionSetupWrite": true,
+  "allowsCampaignCreate": false,
+  "allowsCampaignEnable": false,
+  "operations": {
+    "create": [
+      "Natango | Lead modulo sito | Settembre 2026"
+    ],
+    "updateToSecondary": [
+      "7423246452",
+      "7426032442",
+      "7426066037"
+    ]
+  },
+  "execution": {
+    "status": "completed",
+    "executedAt": "2026-07-22T10:07:00Z",
+    "createdConversionActionId": "7693842157",
+    "createdConversionStatus": "ENABLED",
+    "createdConversionPrimaryForGoal": true,
+    "updatedActionsPrimaryForGoal": false,
+    "campaignWritesMade": false,
+    "campaignEnableCallsMade": false
+  }
+}

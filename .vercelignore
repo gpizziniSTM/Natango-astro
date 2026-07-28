@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.example
+data/*.local.json
+data/*.local.txt
+meta-assets/
+output/
+tmp/

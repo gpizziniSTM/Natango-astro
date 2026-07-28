@@ -1,0 +1,120 @@
+---
+const error = Astro.url.searchParams.get('error');
+
+export const prerender = false;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accesso Natango Ads</title>
+  </head>
+  <body>
+    <main class="auth-shell">
+      <section class="auth-panel">
+        <img src="/wp-content/uploads/2025/11/logo-natango-no-sf.png" alt="Natango" />
+        <span>Dashboard privata</span>
+        <h1>Accesso Natango Ads</h1>
+        {error && <p class="error">{error}</p>}
+        <form method="post" action="/api/meta-auth/login">
+          <label>
+            Utente
+            <input name="username" value="admin" autocomplete="username" required />
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" autocomplete="current-password" required autofocus />
+          </label>
+          <button type="submit">Entra</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #0c0d10;
+    color: #f6f7fb;
+    font-family: system-ui, sans-serif;
+  }
+
+  .auth-shell {
+    min-height: 100vh;
+    display: grid;
+    align-items: start;
+    justify-items: center;
+    padding: clamp(32px, 8vh, 72px) 20px 20px;
+  }
+
+  .auth-panel {
+    width: min(100%, 420px);
+    padding: 28px;
+    background: #15171c;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+  }
+
+  img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+  }
+
+  span,
+  label {
+    color: #aeb4c0;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 8px 0 22px;
+    font-size: 28px;
+    line-height: 1.15;
+  }
+
+  form,
+  label {
+    display: grid;
+    gap: 10px;
+  }
+
+  form {
+    gap: 16px;
+  }
+
+  input {
+    min-height: 44px;
+    padding: 0 12px;
+    color: #f6f7fb;
+    background: #1d2027;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font: inherit;
+  }
+
+  button {
+    min-height: 46px;
+    color: white;
+    background: #1c8ed6;
+    border: 0;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .error {
+    margin: 0 0 16px;
+    padding: 10px 12px;
+    color: #ffe8b4;
+    background: rgba(214, 154, 45, 0.18);
+    border-radius: 6px;
+  }
+</style>

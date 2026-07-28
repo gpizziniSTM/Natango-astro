@@ -1,0 +1,32 @@
+{
+  "approved": true,
+  "approvedAt": "2026-07-22T10:57:00Z",
+  "approvedBy": "user_chat_authorization",
+  "scope": "update_existing_search_campaign_paused",
+  "accountId": "6934226615",
+  "campaignId": "24061339564",
+  "allowsCampaignUpdatePaused": true,
+  "allowsCampaignEnable": false,
+  "changes": {
+    "startDate": "2026-07-22",
+    "endDate": "2026-10-31 unchanged",
+    "dailyBudgetEur": 3,
+    "nextPlannedDailyBudgetEur": 7,
+    "nextPlannedBudgetDate": "2026-08-10",
+    "courseTime": "20:00-21:00",
+    "adSchedule": "07:00-23:00 unchanged"
+  },
+  "execution": {
+    "status": "completed",
+    "executedAt": "2026-07-22T10:24:43Z",
+    "campaignStatus": "PAUSED",
+    "startDateApplied": "2026-07-22",
+    "dailyBudgetEurApplied": 3,
+    "adsUpdated": 3,
+    "campaignEnableCallsMade": false,
+    "verifiedByReadOnlyAudit": true,
+    "landingDeployment": "https://natango-astro-huq6l8qyv-stmitalia.vercel.app",
+    "productionAlias": "https://www.natango.org",
+    "landingHttpVerified": true
+  }
+}

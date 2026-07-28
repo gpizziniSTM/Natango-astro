@@ -1,0 +1,21 @@
+{
+  "approved": true,
+  "approvedAt": "2026-07-22T12:31:40Z",
+  "approvedBy": "user_chat_authorization",
+  "scope": "permanently_remove_single_old_campaign",
+  "accountId": "6934226615",
+  "campaignId": "23361550943",
+  "campaignName": "Natango Principianti Gen26",
+  "allowsPermanentCampaignRemoval": true,
+  "allowsOtherCampaignChanges": false,
+  "expectedPreviousState": {
+    "status": "PAUSED",
+    "channelType": "SEARCH",
+    "dailyBudgetEur": 10
+  },
+  "execution": {
+    "status": "completed",
+    "completedAt": "2026-07-22T12:32:38Z",
+    "verifiedCampaignStatus": "REMOVED"
+  }
+}

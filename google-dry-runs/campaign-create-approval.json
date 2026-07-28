@@ -1,0 +1,39 @@
+{
+  "approved": true,
+  "approvedAt": "2026-07-22T10:14:55Z",
+  "approvedBy": "user_chat_authorization",
+  "scope": "create_complete_search_campaign_paused",
+  "accountId": "6934226615",
+  "campaignName": "Natango | Principianti Assoluti Roma | Settembre 2026",
+  "allowsCampaignCreatePaused": true,
+  "allowsCampaignEnable": false,
+  "allowsBudgetChange": false,
+  "dailyBudgetEur": 8,
+  "expected": {
+    "campaigns": 1,
+    "adGroups": 3,
+    "keywords": 15,
+    "responsiveSearchAds": 3,
+    "allServingObjectsPaused": true
+  },
+  "execution": {
+    "status": "completed",
+    "executedAt": "2026-07-22T10:16:44Z",
+    "campaignId": "24061339564",
+    "campaignStatus": "PAUSED",
+    "campaignBudgetId": "15736137483",
+    "dailyBudgetEur": 8,
+    "adGroupIds": [
+      "204240938528",
+      "204240938568",
+      "204240938608"
+    ],
+    "adIds": [
+      "817948227302",
+      "817948227305",
+      "817948227308"
+    ],
+    "campaignEnableCallsMade": false,
+    "verifiedByReadOnlyAudit": true
+  }
+}

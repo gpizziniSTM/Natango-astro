@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "apiVersion": "v24",
+  "account": {
+    "id": "6934226615",
+    "name": "Accademia Natango",
+    "currency": "EUR",
+    "timezone": "Europe/Rome",
+    "managerId": "7636248470"
+  },
+  "course": {
+    "name": "Principianti Assoluti",
+    "openDay": "2026-09-21",
+    "firstRegularLesson": "2026-09-28",
+    "day": "Lunedi",
+    "time": "20:00-21:00",
+    "venue": "Tango Loft",
+    "address": "Via del Mandrione 109, Roma",
+    "minimumParticipants": 20,
+    "targetParticipants": 30,
+    "maximumParticipants": 50
+  },
+  "offer": {
+    "freeLessons": 4,
+    "freeLessonsFromFirstAttendance": true,
+    "standardMonthlyPriceEur": 60,
+    "under40MonthlyPriceEur": 40,
+    "annualMembershipFeeEur": 5,
+    "partnerRequired": false
+  },
+  "budget": {
+    "initialAuthorizedTotalEur": 400,
+    "conditionalMaxTotalEur": 600,
+    "absoluteMaxTotalEur": 600,
+    "initialAverageDailyEur": 8,
+    "absoluteMaxDailyEur": 20,
+    "extensionRequiresNewApproval": true
+  },
+  "targeting": {
+    "country": "IT",
+    "language": "it",
+    "locationPresenceOnly": true,
+    "primaryArea": "Roma centro-est e sud-est",
+    "secondaryArea": "Castelli Romani, solo come test controllato"
+  },
+  "access": {
+    "defaultMode": "dry_run_only",
+    "allowRead": true,
+    "allowCreate": false,
+    "allowUpdate": false,
+    "allowEnable": false,
+    "requireHumanApprovalFor": [
+      "campaign_create",
+      "campaign_update",
+      "budget_change",
+      "status_change"
+    ]
+  },
+  "guards": {
+    "neverCommitCredentials": true,
+    "stopOnAccountMismatch": true,
+    "stopOnBudgetAboveCap": true,
+    "createPausedOnly": true,
+    "neverAutoIncreaseBudget": true,
+    "neverAutoApplyRecommendations": true
+  }
+}

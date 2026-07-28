@@ -1,0 +1,87 @@
+---
+import GoogleCampaignDashboard from '../components/GoogleCampaignDashboard.jsx';
+import { readGoogleAdsPolicy, validateGoogleCampaignPlan } from '../lib/googleAdsPlan.js';
+import { readGoogleDashboardPlan } from '../lib/googleDashboardStorage.js';
+
+export const prerender = false;
+
+const plan = await readGoogleDashboardPlan();
+const policy = readGoogleAdsPolicy();
+const errors = validateGoogleCampaignPlan(plan, policy);
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Natango Google Ads Dashboard</title>
+    <link rel="icon" type="image/png" href="/wp-content/uploads/2025/11/logo-natango-150x150.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <GoogleCampaignDashboard initialPlan={plan} policy={policy} initialErrors={errors} client:load />
+  </body>
+</html>
+
+<style is:global>
+  :root { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #f6f7fb; background: #0c0d10; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-width: 320px; background: #0c0d10; }
+  button { font: inherit; }
+  .google-shell { min-height: 100vh; padding: 18px; }
+  .topbar { max-width: 1440px; min-height: 68px; margin: 0 auto 18px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand img { width: 48px; height: 48px; object-fit: contain; }
+  .brand span, .panel-title span, .status-grid span, .facts span { color: #aeb4c0; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { margin: 3px 0 0; font-size: 22px; }
+  h2 { margin: 4px 0 0; font-size: 18px; }
+  h3 { margin-bottom: 10px; }
+  nav { display: flex; gap: 8px; }
+  nav a { padding: 10px 14px; color: #aeb4c0; text-decoration: none; background: #15171c; border: 1px solid rgba(255,255,255,.1); border-radius: 7px; }
+  nav a.active { color: white; border-color: #4285f4; background: rgba(66,133,244,.18); }
+  .status-grid, .dashboard-grid { max-width: 1440px; margin: 0 auto; display: grid; gap: 14px; }
+  .status-grid { grid-template-columns: repeat(4, 1fr); margin-bottom: 14px; }
+  .status-grid article, .panel { background: #15171c; border: 1px solid rgba(255,255,255,.1); border-radius: 8px; }
+  .status-grid article { min-height: 104px; padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+  .status-grid strong { font-size: 18px; }
+  .status-grid small { color: #aeb4c0; }
+  .dashboard-grid { grid-template-columns: repeat(3, 1fr); align-items: start; }
+  .panel { padding: 18px; min-width: 0; }
+  .span-2 { grid-column: span 2; }
+  .panel-title { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 16px; }
+  .panel-title b { padding: 6px 9px; color: #d5c7ff; background: rgba(138,91,216,.18); border-radius: 6px; font-size: 11px; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .facts div { padding: 12px; background: #1d2027; border-radius: 6px; display: grid; gap: 5px; }
+  .landing { display: block; margin-top: 12px; color: #73b2ff; word-break: break-all; }
+  ul { margin: 0; padding-left: 20px; color: #d8dce4; }
+  li { margin: 8px 0; line-height: 1.45; }
+  .groups { display: grid; gap: 16px; }
+  .groups section { padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .groups section:last-child { border-bottom: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chips span { padding: 7px 9px; color: #e8ebf2; background: #1d2027; border: 1px solid rgba(255,255,255,.08); border-radius: 6px; font-size: 12px; }
+  .chips small { margin-left: 4px; color: #8ebcff; }
+  .negatives span { color: #ffc5c5; background: rgba(216,82,82,.12); }
+  .ad-preview { padding: 16px; color: #3c4043; background: #fff; border-radius: 7px; }
+  .ad-preview small { color: #4d5156; }
+  .ad-preview h3 { margin: 7px 0; color: #1a0dab; font-size: 17px; font-weight: 500; }
+  .ad-preview p { margin: 0; line-height: 1.4; }
+  details { margin-top: 12px; color: #aeb4c0; }
+  summary { cursor: pointer; }
+  .checks { list-style: none; padding: 0; }
+  .checks li::before { content: '○'; display: inline-block; width: 22px; color: #aeb4c0; }
+  .checks li.pass::before { content: '✓'; color: #25b47e; }
+  .checks li.fail::before { content: '!'; color: #d85252; }
+  button { width: 100%; min-height: 43px; margin-top: 9px; padding: 0 12px; color: #fff; background: #242832; border: 1px solid rgba(255,255,255,.12); border-radius: 6px; font-weight: 800; cursor: pointer; }
+  button.primary { background: #1a73e8; border-color: #1a73e8; }
+  button:disabled { opacity: .55; cursor: not-allowed; }
+  .warning { margin: 12px 0 0; color: #d5a94a; font-size: 12px; line-height: 1.5; }
+  .notice { max-width: 1440px; margin: 0 auto 14px; padding: 12px 14px; color: #ffe8b4; background: rgba(214,154,45,.16); border: 1px solid rgba(214,154,45,.3); border-radius: 7px; }
+  .notice.ok { color: #c8f5e4; background: rgba(37,180,126,.13); border-color: rgba(37,180,126,.3); }
+  @media (max-width: 1000px) { .status-grid { grid-template-columns: repeat(2, 1fr); } .dashboard-grid { grid-template-columns: 1fr 1fr; } .span-2 { grid-column: span 2; } .facts { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 680px) { .topbar { align-items: flex-start; flex-direction: column; } .status-grid, .dashboard-grid { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } .facts { grid-template-columns: 1fr; } h1 { font-size: 18px; } }
+</style>
