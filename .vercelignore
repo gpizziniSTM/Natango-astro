@@ -6,3 +6,9 @@ data/*.local.txt
 meta-assets/
 output/
 tmp/
+
+# Legacy Python Ads report. The active endpoint is the Astro/TypeScript route
+# in src/pages/api/ads-report.ts; deploying both exceeds Vercel's function limit.
+api/
+Natango ADS/
+requirements.txt
