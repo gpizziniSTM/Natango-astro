@@ -94,6 +94,16 @@ Puoi testare il server da terminale, senza Claude, con l'MCP Inspector:
 npx @modelcontextprotocol/inspector node dist/index.js
 ```
 
+## Rotazione token Meta (procedura verificata set 2026)
+
+"Revoca token" sul System User revoca **tutti** i token attivi di quell'utente,
+non uno solo. Ordine corretto: Business Settings → Utenti di sistema →
+Conversions API System User → **Revoca token** → **Genera token** (app Natango 2026,
+scadenza *Mai*, scope `ads_management`, `ads_read`, `business_management`) →
+aggiorna `META_ACCESS_TOKEN` nel `.env` → verifica con
+`debug_token` o `meta_ads_status`. Il token attuale è stato emesso il 14/9/2026
+senza scadenza; `META_TOKEN_EXPIRES_AT` non serve più.
+
 ## Debito tecnico tracciato (rimandato con la scelta "adattata ai tempi")
 
 Questi 3 punti erano stati identificati in fase di review e volutamente
@@ -116,7 +126,7 @@ Questi 3 punti erano stati identificati in fase di review e volutamente
    `act_1088446485620774`, generare un token dedicato e sostituirlo nel
    file `.env` usato da questo server.
 
-3. **Meta — token con scadenza invece che "Never"**
+3. ~~**Meta — token con scadenza invece che "Never"**~~ (chiuso 14/9/2026)
    Il token attuale scade il 19/9/2026 18:14 (ora italiana). Azione: alla
    creazione del nuovo System User dedicato (punto 2), generare il token con
    scadenza **Never** per evitare un'interruzione silenziosa del
