@@ -4,25 +4,59 @@
       "day": "Lunedì",
       "time": "20:00 - 21:00",
       "courseName": "Principianti Assoluti",
+      "teacher": "Francesca Del Buono e Santiago Castro",
+      "location": "Tango Loft",
+      "info": "Lezione di prova gratuita sempre disponibile"
+    },
+    {
+      "day": "Lunedì",
+      "time": "21:00 - 22:00",
+      "courseName": "intermedi",
+      "teacher": "Francesca Del Buono e Santiago Castro",
+      "location": "Tango Loft"
+    },
+    {
+      "day": "Lunedì",
+      "time": "22:00 - 23:00",
+      "courseName": "Avanzati",
+      "teacher": "Francesca Del Buono e Santiago Castro",
+      "location": "Tango Loft"
+    },
+    {
+      "day": "Mercoledì",
+      "time": "20:00 - 21:00",
+      "courseName": "Principianti Assoluti",
       "teacher": "Francesca Del Buono",
       "location": "Tango Loft",
       "info": "Lezione di prova gratuita sempre disponibile"
     },
     {
       "day": "Mercoledì",
-      "time": "21:15 - 22:30",
-      "courseName": "Intermedi / Avanzati",
-      "teacher": "Francesca Del Buono",
-      "location": "Tango Loft",
-      "info": "Studio approfondito del tango salon"
+      "time": "21:00 - 22:00",
+      "courseName": "Intermedi",
+      "teacher": "Francesca Del Buono e Francesco Scoppio",
+      "location": "Tango Loft"
     },
     {
       "day": "Mercoledì",
-      "time": "20:30 - 21:45",
-      "courseName": "Tecnica Femminile (Tutti i livelli)",
-      "teacher": "Francesca Del Buono",
-      "location": "Gotan Club",
-      "info": "Postura, eleganza e dinamica"
+      "time": "22:00 - 23:00",
+      "courseName": "Avanzati",
+      "teacher": "Francesca Del Buono e Francesco Scoppio",
+      "location": "Tango Loft"
+    },
+    {
+      "day": "Giovedì",
+      "time": "20:30 - 21:30",
+      "courseName": "Coppie (Open Level)",
+      "teacher": "Francesca Del Buono e Santiago Castro",
+      "location": "Tango Loft"
+    },
+    {
+      "day": "Giovedì",
+      "time": "20:00 - 21:15",
+      "courseName": "Corso special",
+      "teacher": "Francesca Del Buono e Santiago Castro",
+      "location": "Tango Loft"
     }
   ]
 }
