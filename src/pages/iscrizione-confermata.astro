@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 
 const isSeptemberCampaign = Astro.url.searchParams.get('offerta') === 'settembre';
 const whatsappMessage = isSeptemberCampaign
-  ? 'Ciao, ho inviato la richiesta per il corso principianti assoluti di settembre e vorrei aggiungere un’informazione.'
+  ? 'Ciao, ho inviato la richiesta per il corso principianti assoluti del lunedì e vorrei aggiungere un’informazione.'
   : 'Ciao, ho inviato la richiesta per la lezione di prova e vorrei aggiungere un’informazione.';
 const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsappMessage)}`;
 ---
@@ -19,12 +19,12 @@ const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsa
       <h1>Abbiamo ricevuto i tuoi dati.</h1>
       <p class="lead">
         {isSeptemberCampaign
-          ? 'Ti ricontatteremo per confermare l’open day del 21 settembre o la prima lezione utile del corso del lunedì.'
+          ? 'Ti ricontatteremo per concordare la prima lezione utile del corso del lunedì.'
           : 'Ti ricontatteremo per concordare giorno e orario della lezione di prova gratuita.'}
       </p>
       <div class="details">
         <div><i class="fas fa-location-dot"></i><span><strong>Tango Loft</strong>Via del Mandrione 109, Roma</span></div>
-        {isSeptemberCampaign && <div><i class="fas fa-clock"></i><span><strong>Lunedì 20:00–21:00</strong>Open day 21 settembre · corso dal 28 settembre</span></div>}
+        {isSeptemberCampaign && <div><i class="fas fa-clock"></i><span><strong>Lunedì 20:00–21:00</strong>Inserimenti aperti anche a corso avviato</span></div>}
       </div>
       <div class="actions">
         <a class="btn btn-red" href={whatsappUrl} target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Scrivici su WhatsApp</a>

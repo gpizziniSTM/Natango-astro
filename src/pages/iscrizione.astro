@@ -5,13 +5,13 @@ import generalSettings from '../content/settings/general.json';
 const isSeptemberCampaign = Astro.url.searchParams.get('offerta') === 'settembre';
 const pageTitle = isSeptemberCampaign
   ? 'Corso di tango principianti a Roma: 4 lezioni gratuite | Natango'
-  : 'Lezione di prova gratuita di Tango a Roma | Natango';
+  : 'Lezione gratuita di tango per principianti assoluti a Roma | Natango';
 const pageDescription = isSeptemberCampaign
-  ? 'Nuovo corso di tango argentino per principianti assoluti al Tango Loft: open day 21 settembre, lunedì 20:00–21:00 e prime 4 lezioni gratuite.'
-  : 'Iscriviti alla lezione di prova gratuita di tango argentino al Tango Loft di via del Mandrione. Puoi partecipare anche senza partner e senza esperienza.';
+  ? 'Corso di tango argentino riservato a principianti assoluti che non hanno mai ballato. Puoi iniziare anche ora: lunedì 20:00–21:00 e prime 4 lezioni gratuite.'
+  : 'Non hai mai ballato? Iscriviti alla lezione di prova gratuita di tango argentino per principianti assoluti al Tango Loft di via del Mandrione.';
 const whatsappMessage = isSeptemberCampaign
-  ? 'Ciao, vorrei prenotare l’open day del 21 settembre o una prova per il corso principianti assoluti del lunedì al Tango Loft.'
-  : 'Ciao, vorrei iscrivermi a una lezione di prova gratuita di tango argentino al Tango Loft.';
+  ? 'Ciao, non ho mai ballato tango e vorrei iniziare il corso per principianti assoluti del lunedì al Tango Loft.'
+  : 'Ciao, non ho mai ballato e vorrei iscrivermi alla lezione di prova gratuita per principianti assoluti al Tango Loft.';
 const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsappMessage)}`;
 ---
 
@@ -25,27 +25,27 @@ const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsa
       <div class="hero-shade" aria-hidden="true"></div>
       <div class="container signup-hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class={isSeptemberCampaign ? 'fas fa-gift' : 'fas fa-heart'}></i> {isSeptemberCampaign ? 'Nuovo corso principianti assoluti' : 'La tua prima lezione è gratuita'}</span>
-          <h1>{isSeptemberCampaign ? 'Inizia il tango con' : 'Il tango comincia da un'} <span>{isSeptemberCampaign ? '4 lezioni gratuite.' : 'primo passo.'}</span></h1>
-          <p class="hero-lead">{isSeptemberCampaign ? 'Open day lunedì 21 settembre 2026. Il corso prosegue ogni lunedì dalle 20:00 alle 21:00 al Tango Loft, in via del Mandrione 109. Puoi iniziare da zero e iscriverti anche senza partner.' : 'Scopri il tango argentino al Tango Loft di via del Mandrione, in un ambiente accogliente e con una didattica attenta e professionale. Non serve esperienza e non è necessario iscriversi in coppia.'}</p>
+          <span class="eyebrow"><i class={isSeptemberCampaign ? 'fas fa-gift' : 'fas fa-heart'}></i> {isSeptemberCampaign ? 'Inserimenti aperti · principianti assoluti' : 'La prima lezione è gratuita'}</span>
+          <h1>{isSeptemberCampaign ? 'Inizia il tango con' : 'Non hai mai ballato?'} <span>{isSeptemberCampaign ? '4 lezioni gratuite.' : 'Inizia da qui.'}</span></h1>
+          <p class="hero-lead">{isSeptemberCampaign ? 'Il corso è riservato a chi non ha mai ballato tango. Puoi iniziare anche ora, ogni lunedì dalle 20:00 alle 21:00 al Tango Loft, in via del Mandrione 109, anche senza partner.' : 'Una lezione pensata per chi parte completamente da zero. Al Tango Loft di via del Mandrione impari i primi passi del tango argentino in un ambiente accogliente, anche se vieni senza partner.'}</p>
           <div class="hero-points" aria-label="I vantaggi della lezione di prova">
-            <span><i class="fas fa-check"></i> Nessuna esperienza richiesta</span>
+            <span><i class="fas fa-check"></i> {isSeptemberCampaign ? 'Solo per chi non ha mai ballato tango' : 'Pensata per chi non ha mai ballato'}</span>
             <span><i class="fas fa-check"></i> Puoi venire anche da solo</span>
             <span><i class="fas fa-check"></i> {isSeptemberCampaign ? 'Le prime 4 lezioni sono gratuite' : 'Prova senza impegno'}</span>
           </div>
-          <a class="btn btn-red hero-cta" href="#modulo-iscrizione">{isSeptemberCampaign ? 'Prenota l’open day o una prova' : 'Prenota il tuo posto'} <i class="fas fa-arrow-down"></i></a>
+          <a class="btn btn-red hero-cta" href="#modulo-iscrizione">{isSeptemberCampaign ? 'Prenota la prima lezione' : 'Prenota il tuo posto'} <i class="fas fa-arrow-down"></i></a>
         </div>
 
-        <aside class="quick-card" aria-label={isSeptemberCampaign ? 'Informazioni sul corso di settembre' : 'Informazioni sulla lezione di prova'}>
+        <aside class="quick-card" aria-label={isSeptemberCampaign ? 'Informazioni sul corso per principianti assoluti' : 'Informazioni sulla lezione di prova'}>
           <span class="quick-label">In breve</span>
-          <h2>{isSeptemberCampaign ? 'Tutto quello che serve per iniziare' : 'Una lezione per conoscerci'}</h2>
+          <h2>{isSeptemberCampaign ? 'Tutto quello che serve per iniziare' : 'La tua prima esperienza di tango'}</h2>
           <div class="quick-item">
             <i class="fas fa-location-dot"></i>
             <div><strong>Tango Loft</strong><span>Via del Mandrione 109, Roma</span></div>
           </div>
           <div class="quick-item">
             <i class="fas fa-calendar-days"></i>
-            <div><strong>{isSeptemberCampaign ? 'Lunedì 20:00–21:00' : 'Principianti benvenuti'}</strong><span>{isSeptemberCampaign ? 'Open day 21 settembre · corso dal 28 settembre' : 'Partiamo insieme dalle basi'}</span></div>
+            <div><strong>{isSeptemberCampaign ? 'Lunedì 20:00–21:00' : 'Principianti assoluti'}</strong><span>{isSeptemberCampaign ? 'Puoi iniziare anche a corso avviato' : 'Partiamo insieme dalle basi, passo dopo passo'}</span></div>
           </div>
           <div class="quick-item">
             <i class="fas fa-euro-sign"></i>
@@ -65,7 +65,7 @@ const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsa
       <div class="container trust-grid">
         <div><strong>25 anni</strong><span>di esperienza internazionale</span></div>
         <div><strong>Tango Loft</strong><span>via del Mandrione 109, Roma</span></div>
-        <div><strong>Tutti i livelli</strong><span>dal primo passo all’avanzato</span></div>
+        <div><strong>Principianti assoluti</strong><span>solo per chi non ha mai ballato tango</span></div>
       </div>
     </section>
 
@@ -74,11 +74,11 @@ const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsa
         <div class="experience-copy">
           <span class="subtitle">La tua esperienza</span>
           <h2>Cosa succede dopo la richiesta?</h2>
-          <p>{isSeptemberCampaign ? 'Puoi partecipare all’open day oppure iniziare più avanti: la prova e gli inserimenti continuano anche durante il corso.' : 'Ti accompagniamo con semplicità dalla richiesta fino al tuo primo abbraccio di tango.'}</p>
+          <p>{isSeptemberCampaign ? 'Il corso è già iniziato, ma gli inserimenti continuano: concordiamo con te la prima lezione utile.' : 'Non devi prepararti né conoscere passi: ti accompagniamo dalla richiesta fino alla tua prima esperienza in pista.'}</p>
         </div>
         <ol class="steps-list">
-          <li><span>01</span><div><h3>Compila il modulo</h3><p>Lasciaci i tuoi contatti e raccontaci se hai già ballato oppure parti da zero.</p></div></li>
-          <li><span>02</span><div><h3>Ti ricontattiamo</h3><p>{isSeptemberCampaign ? 'Confermiamo il posto per il 21 settembre o concordiamo la prima lezione utile dopo l’open day.' : 'Confermiamo insieme il giorno e l’orario della prova al Tango Loft.'}</p></div></li>
+          <li><span>01</span><div><h3>Compila il modulo</h3><p>Lasciaci i tuoi contatti: il corso è riservato a chi non ha mai ballato tango.</p></div></li>
+          <li><span>02</span><div><h3>Ti ricontattiamo</h3><p>{isSeptemberCampaign ? 'Concordiamo la prima lezione utile del corso del lunedì.' : 'Confermiamo insieme il giorno e l’orario della prova al Tango Loft.'}</p></div></li>
           <li><span>03</span><div><h3>{isSeptemberCampaign ? 'Inizia le tue 4 lezioni gratuite' : 'Vieni a provare'}</h3><p>{isSeptemberCampaign ? 'Le quattro lezioni gratuite decorrono dalla tua prima presenza. Poi scegli se continuare, senza obbligo.' : 'Abiti comodi, curiosità e voglia di ballare: al resto pensiamo noi.'}</p></div></li>
         </ol>
       </div>
@@ -88,8 +88,8 @@ const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsa
       <div class="container form-grid">
         <div class="form-intro">
           <span class="subtitle">Prenota ora</span>
-          <h2>{isSeptemberCampaign ? 'Prenota il tuo primo incontro' : 'Iscriviti alla lezione di prova gratuita'}</h2>
-          <p>{isSeptemberCampaign ? 'Lasciaci i tuoi dati per partecipare all’open day del 21 settembre o per concordare una prova successiva. Ti ricontatteremo al più presto.' : 'Lasciaci i tuoi dati. Ti contatteremo al più presto per confermare la lezione gratuita al Tango Loft e rispondere alle tue domande.'}</p>
+          <h2>{isSeptemberCampaign ? 'Prenota il tuo primo incontro' : 'Prenota la tua prima lezione di tango'}</h2>
+          <p>{isSeptemberCampaign ? 'Se non hai mai ballato tango, lascia i tuoi dati: ti ricontatteremo per concordare la prima lezione utile.' : 'La prova è gratuita ed è riservata ai principianti assoluti. Lasciaci i tuoi dati: ti contatteremo per confermare giorno e orario al Tango Loft.'}</p>
 
           <div class="contact-box">
             <p>Preferisci parlarne direttamente?</p>
@@ -101,10 +101,11 @@ const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsa
         <div class="form-card">
           <form action="https://api.web3forms.com/submit" method="POST" class="signup-form" data-offer={isSeptemberCampaign ? 'settembre-4-lezioni' : 'lezione-prova'}>
             <input type="hidden" name="access_key" value="04d77041-e95f-46b6-8bef-4a19fd658b46" />
-            <input type="hidden" name="subject" value={isSeptemberCampaign ? 'Nuova richiesta corso settembre - 4 lezioni gratuite - Natango' : 'Nuova iscrizione landing lezione di prova - Natango'} />
+            <input type="hidden" name="subject" value={isSeptemberCampaign ? 'Nuova richiesta corso principianti assoluti - 4 lezioni gratuite - Natango' : 'Nuova iscrizione landing lezione di prova - Natango'} />
             <input type="hidden" name="from_name" value="Landing Natango" />
             <input type="hidden" name="sede" value="Tango Loft - Via del Mandrione 109" />
-            <input type="hidden" name="offerta" value={isSeptemberCampaign ? 'Prime 4 lezioni gratuite dal primo ingresso - settembre 2026' : 'Lezione di prova gratuita'} />
+            <input type="hidden" name="offerta" value={isSeptemberCampaign ? 'Prime 4 lezioni gratuite dal primo ingresso - principianti assoluti' : 'Lezione di prova gratuita'} />
+            <input type="hidden" name="livello" value="Principiante assoluto - non ha mai ballato tango" />
             <input type="hidden" name="redirect" value={`https://natango.org/iscrizione-confermata?offerta=${isSeptemberCampaign ? 'settembre' : 'prova'}`} />
             <input type="hidden" name="utm_source" value="" />
             <input type="hidden" name="utm_medium" value="" />
@@ -136,18 +137,10 @@ const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsa
               </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-row single-field-row">
               <div class="field venue-field">
                 <span class="field-label">Sede del corso</span>
                 <div class="venue-value"><i class="fas fa-location-dot"></i><span><strong>Tango Loft</strong>Via del Mandrione 109, Roma</span></div>
-              </div>
-              <div class="field">
-                <label for="signup-level">Il tuo livello</label>
-                <select id="signup-level" name="livello">
-                  <option value="Principiante assoluto">Non ho mai ballato</option>
-                  <option value="Principiante">Ho già fatto qualche lezione</option>
-                  <option value="Intermedio o avanzato">Intermedio o avanzato</option>
-                </select>
               </div>
             </div>
 
@@ -309,6 +302,7 @@ const whatsappUrl = `https://wa.me/393392737619?text=${encodeURIComponent(whatsa
   .form-card { padding: clamp(1.4rem, 4vw, 2.7rem); background: #17171c; border: 1px solid rgba(255,255,255,.12); border-radius: 20px; box-shadow: 0 25px 70px rgba(0,0,0,.3); }
   .signup-form { display: grid; gap: 1.25rem; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .form-row.single-field-row { grid-template-columns: 1fr; }
   .field { display: grid; gap: .5rem; }
   .field label { color: #eeeef1; font-size: .88rem; font-weight: 700; }
   .field-label { color: #eeeef1; font-size: .88rem; font-weight: 700; }
